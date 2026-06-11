@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khair-Eddine Mohamed · Architect & CG Artist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --clay:#C2674A;
+    --brick:#993C1D;
+    --clay-tint:#FAECE7;
+    --clay-mid:#E8C9BB;
+    --ink:#1c1a17;
+    --paper:#fdfcfa;
+    --paper-2:#f5f2ec;
+    --muted:#6b6760;
+    --hint:#9b968d;
+    --line:rgba(28,26,23,0.12);
+    --line-2:rgba(28,26,23,0.22);
+    --display:'Fraunces',serif;
+    --sans:'Outfit',sans-serif;
+    --mono:'JetBrains Mono',monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.7;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(253,252,250,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:0.5px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;
+  }
+  .brand{font-size:15px;font-weight:500;letter-spacing:0.01em;cursor:pointer;}
+  .brand .sep{color:var(--clay);}
+  .brand .role{color:var(--hint);font-weight:400;}
+  .nav-links{display:flex;gap:26px;align-items:center;font-size:13.5px;color:var(--muted);}
+  .nav-links a{cursor:pointer;transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--brick);font-weight:500;}
+  .lang-toggle{
+    cursor:pointer;font-size:13px;font-weight:500;color:var(--brick);
+    border:0.5px solid var(--line-2);border-radius:7px;padding:4px 10px;
+    transition:background .2s;
+  }
+  .lang-toggle:hover{background:var(--clay-tint);}
+  .lang-toggle .off{color:var(--hint);font-weight:400;}
+
+  /* ---------- LAYOUT ---------- */
+  main{max-width:var(--maxw);margin:0 auto;}
+  .page{display:none;animation:fade .5s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  /* ---------- HOME HERO ---------- */
+  .hero{padding:84px 32px 64px;}
+
+  /* ---------- HELLO centered hero with rotating background ---------- */
+  .hello-hero{position:relative;min-height:calc(100vh - 120px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px;overflow:hidden;}
+  .hello-bg{position:absolute;inset:0;z-index:0;}
+  .hello-bg .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;}
+  .hello-bg .slide.on{opacity:1;}
+  .hello-bg .slide.placeholder{background:linear-gradient(135deg,var(--clay-tint),var(--clay-mid));display:flex;align-items:center;justify-content:center;}
+  .hello-bg .slide.placeholder span{font-family:var(--mono);font-size:12px;color:var(--brick);opacity:.6;}
+  .hello-scrim{position:absolute;inset:0;z-index:1;background:rgba(253,252,250,0.74);}
+  .hello-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+  .hello-inner .eyebrow{justify-content:center;}
+  .hello-inner h1.title{max-width:760px;}
+  .hello-inner .lede{margin-left:auto;margin-right:auto;}
+  .hello-inner .statstrip{margin-left:auto;margin-right:auto;}
+
+  /* ---------- VISION ---------- */
+  .vision{padding:72px 32px 84px;border-top:0.5px solid var(--line);text-align:center;}
+  .vision .v-eyebrow{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brick);margin-bottom:22px;}
+  .vision p{font-family:var(--display);font-size:clamp(19px,2.4vw,26px);line-height:1.55;font-weight:400;max-width:760px;margin:0 auto;color:var(--ink);}
+
+  /* ---------- centered between-lines heading (Work & Contact) ---------- */
+  .centered-head{display:flex;align-items:center;justify-content:center;gap:22px;padding:64px 32px 8px;}
+  .centered-head .hr{flex:0 0 60px;height:0.5px;background:var(--line-2);}
+  .centered-head h1{font-family:var(--display);font-size:clamp(26px,4vw,40px);font-weight:500;letter-spacing:0.02em;text-transform:uppercase;}
+  .centered-sub{text-align:center;font-size:15px;color:var(--muted);max-width:480px;margin:14px auto 0;padding:0 32px;}
+
+  .eyebrow{display:flex;align-items:center;gap:11px;margin-bottom:24px;}
+  .eyebrow .tick{width:26px;height:2px;background:var(--clay);display:inline-block;}
+  .eyebrow span{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brick);}
+  h1.title{
+    font-family:var(--display);font-weight:500;font-size:clamp(34px,5.5vw,60px);
+    line-height:1.05;letter-spacing:-0.02em;max-width:880px;
+  }
+  h1.title .accent{color:var(--clay);font-style:italic;}
+  .lede{font-size:17px;line-height:1.7;color:var(--muted);max-width:560px;margin-top:26px;}
+
+  .statstrip{
+    display:flex;flex-wrap:wrap;margin-top:48px;
+    border:0.5px solid var(--line);border-radius:10px;overflow:hidden;max-width:760px;
+  }
+  .statstrip .cell{flex:1;min-width:140px;padding:18px 22px;border-right:0.5px solid var(--line);}
+  .statstrip .cell:last-child{border-right:none;}
+  .statstrip .num{font-family:var(--display);font-size:26px;font-weight:500;}
+  .statstrip .lbl{font-size:11px;color:var(--hint);letter-spacing:0.04em;margin-top:4px;}
+  .metaline{margin-top:24px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--hint);}
+  .metaline .pin{color:var(--clay);}
+
+  /* ---------- WORK INDEX ---------- */
+  .section-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:30px 32px 4px;border-top:0.5px solid var(--line);margin:0 0 0;
+  }
+  .section-head h2{font-family:var(--display);font-size:24px;font-weight:500;}
+  .section-head .fr{color:var(--hint);font-weight:400;font-size:15px;font-family:var(--sans);}
+  .section-head .yr{font-size:12px;color:var(--hint);letter-spacing:0.04em;}
+  .windex{padding:8px 32px 60px;}
+  .wrow{
+    display:grid;grid-template-columns:58px 1fr auto;gap:20px;align-items:center;
+    padding:22px 0;border-top:0.5px solid var(--line);cursor:pointer;transition:padding-left .25s,background .25s;
+  }
+  .wrow:hover{padding-left:10px;background:linear-gradient(to right,var(--clay-tint),transparent 60%);}
+  .wrow .idx{font-family:var(--mono);font-size:13px;color:var(--clay);}
+  .wrow .pname{font-family:var(--display);font-size:19px;font-weight:500;}
+  .wrow .pmeta{font-size:13px;color:var(--muted);margin-top:3px;}
+  .wrow .badge{
+    font-size:11px;letter-spacing:0.06em;color:var(--brick);background:var(--clay-tint);
+    padding:6px 11px;border-radius:7px;white-space:nowrap;
+  }
+  .wrow .arrow{color:var(--clay);opacity:0;transition:opacity .25s,transform .25s;transform:translateX(-6px);}
+  .wrow:hover .arrow{opacity:1;transform:none;}
+
+  /* ---------- PROJECT PAGE ---------- */
+  .proj-top{display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:0.5px solid var(--line);}
+  .proj-top .back{font-size:14px;color:var(--muted);cursor:pointer;}
+  .proj-top .back .a{color:var(--clay);}
+  .proj-top .count{font-family:var(--mono);font-size:13px;color:var(--hint);}
+
+  .phero{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--clay-mid);}
+  .phero .ph-fill{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);}
+  .phero .ph-fill i{font-size:34px;}
+  .phero .ph-fill .cap{font-size:13px;font-weight:500;margin-top:8px;}
+  .phero .ph-fill .fn{font-size:11px;font-family:var(--mono);color:#b5613f;margin-top:3px;}
+  .phero .scrim{position:absolute;left:0;right:0;bottom:0;height:60%;
+    background:linear-gradient(to top,rgba(18,11,7,0.82),rgba(18,11,7,0.30) 55%,transparent);}
+  .phero .htitle{position:absolute;left:0;right:0;bottom:0;padding:34px 32px 30px;}
+  .phero .htitle .eb{display:flex;align-items:center;gap:9px;margin-bottom:11px;}
+  .phero .htitle .eb .tick{width:20px;height:2px;background:#E8956F;}
+  .phero .htitle .eb span{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#F0C4B0;}
+  .phero .htitle h1{font-family:var(--display);font-weight:500;font-size:clamp(32px,5vw,52px);color:#fff;line-height:1;letter-spacing:-0.02em;}
+  .phero .htitle .loc{font-size:15px;color:rgba(255,255,255,0.85);margin-top:9px;}
+
+  .pmeta-row{padding:32px;border-bottom:0.5px solid var(--line);}
+  .pmeta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:26px 22px;}
+  .pmeta-grid .k{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--hint);margin-bottom:7px;}
+  .pmeta-grid .v{font-size:14px;}
+  .pmeta-grid .v.phase{color:var(--brick);}
+
+  .pintro{padding:48px 32px;max-width:680px;margin:0 auto;}
+  .pintro p{font-family:var(--display);font-size:20px;line-height:1.6;font-style:italic;color:var(--ink);text-align:center;opacity:0.9;}
+
+  .chapter{padding:0 32px;}
+  .chapter .ch-head{
+    font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brick);
+    border-top:0.5px solid var(--line);padding-top:20px;margin-top:14px;
+  }
+  .chapter .ch-head .sub{color:var(--hint);letter-spacing:0;text-transform:none;font-size:12px;}
+  .chapter .ch-body{font-size:15px;line-height:1.75;color:var(--muted);max-width:680px;padding:18px 0 28px;}
+
+  .imgslot{
+    background:var(--paper-2);border:0.5px dashed var(--line-2);border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);
+    margin-bottom:16px;
+  }
+  .imgslot.warm{background:var(--clay-tint);border-color:var(--clay);color:var(--brick);}
+  .imgslot i{font-size:24px;}
+  .imgslot .cap{font-size:12px;margin-top:6px;text-align:center;padding:0 12px;}
+  .imgslot .fn{font-size:10px;font-family:var(--mono);margin-top:3px;}
+  .imgslot.r43{aspect-ratio:4/3;}
+  .imgslot.r32{aspect-ratio:3/2;}
+  .imgslot.r169{aspect-ratio:16/9;}
+  .imgslot.r219{aspect-ratio:21/9;}
+  .imgslot.rtall{aspect-ratio:9/16;}
+  .imgslot.rsquare{aspect-ratio:1/1;}
+  .imgslot.rstrip{aspect-ratio:32/9;}
+  .imgpair{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .imgquad{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  /* tall layout: vertical image beside a stack of content */
+  .imgtall-row{display:grid;grid-template-columns:0.62fr 1fr;gap:16px;align-items:start;}
+  .imgtall-row .imgslot.rtall{aspect-ratio:3/4;height:100%;}
+  .chapter-imgs{padding-bottom:8px;}
+
+  .pfoot{display:flex;justify-content:space-between;padding:24px 32px;border-top:0.5px solid var(--line);font-size:13.5px;margin-top:20px;}
+  .pfoot .back{color:var(--hint);cursor:pointer;}
+  .pfoot .next{color:var(--brick);font-weight:500;cursor:pointer;}
+
+  /* ---------- ABOUT ---------- */
+  .about-intro{padding:56px 32px 40px;display:grid;grid-template-columns:148px 1fr;gap:34px;align-items:start;}
+  .portrait{width:148px;height:148px;border-radius:12px;background:var(--clay-tint);display:flex;align-items:center;justify-content:center;border:0.5px solid var(--line);}
+  .portrait span{font-family:var(--display);font-size:38px;font-weight:500;color:var(--brick);}
+  .about-intro h1{font-family:var(--display);font-size:28px;font-weight:500;line-height:1.25;letter-spacing:-0.01em;max-width:540px;margin-bottom:16px;}
+  .about-intro .bio{font-size:15px;line-height:1.75;color:var(--muted);max-width:580px;}
+  .about-contact{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--hint);}
+  .about-contact i{color:var(--clay);}
+  .xp{padding:8px 32px 24px;}
+  .xp-head{font-family:var(--display);font-size:22px;font-weight:500;border-top:0.5px solid var(--line);padding-top:24px;}
+  .xp-head .fr{color:var(--hint);font-size:14px;font-family:var(--sans);font-weight:400;}
+  .xprow{display:grid;grid-template-columns:160px 1fr;gap:24px;padding:20px 0;border-top:0.5px solid var(--line);}
+  .xprow .when{font-size:13px;font-weight:500;}
+  .xprow .where{font-size:12px;color:var(--hint);margin-top:3px;}
+  .xprow .role{font-size:15px;font-weight:500;}
+  .xprow .desc{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:5px;}
+  .creds{padding:8px 32px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px;border-top:0.5px solid var(--line);padding-top:28px;}
+  .creds .ck{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brick);margin-bottom:13px;}
+  .creds .ci{font-size:13.5px;color:var(--muted);line-height:1.9;}
+  .creds .ci b{color:var(--ink);font-weight:500;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding:72px 32px;}
+  .contact-centered{padding-top:24px;}
+  .contact-centered .links{margin-left:auto;margin-right:auto;}
+  .contact-centered .clink{justify-content:center;}
+  .contact h1{font-family:var(--display);font-size:clamp(30px,5vw,48px);font-weight:500;letter-spacing:-0.02em;}
+  .contact h1 .accent{color:var(--clay);font-style:italic;}
+  .contact .links{margin-top:34px;display:flex;flex-direction:column;gap:2px;max-width:520px;}
+  .contact .clink{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:0.5px solid var(--line);font-size:16px;cursor:pointer;transition:padding-left .2s;}
+  .contact .clink:hover{padding-left:8px;}
+  .contact .clink i{color:var(--clay);font-size:20px;width:24px;}
+  .contact .clink:last-child{border-bottom:0.5px solid var(--line);}
+
+  footer.site{padding:30px 32px;border-top:0.5px solid var(--line);font-size:12px;color:var(--hint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- CONTACT DOCK ---------- */
+  .dock{position:fixed;right:24px;bottom:24px;z-index:60;display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .dock-opts{display:flex;flex-direction:column;gap:12px;align-items:center;
+    opacity:0;transform:translateY(12px) scale(0.9);pointer-events:none;
+    transition:opacity .28s ease,transform .28s cubic-bezier(.2,.8,.2,1);}
+  .dock.open .dock-opts{opacity:1;transform:none;pointer-events:auto;}
+  .dock-opts a{
+    width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:var(--paper);border:0.5px solid var(--line-2);color:var(--brick);
+    box-shadow:0 6px 20px rgba(28,26,23,0.12);font-size:21px;cursor:pointer;
+    transition:transform .2s,background .2s,color .2s;position:relative;
+  }
+  .dock-opts a:hover{transform:scale(1.08);background:var(--clay-tint);}
+  .dock-opts a .tip{
+    position:absolute;right:60px;top:50%;transform:translateY(-50%);
+    background:var(--ink);color:var(--paper);font-size:11px;font-family:var(--sans);
+    padding:5px 9px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .dock-opts a:hover .tip{opacity:1;}
+  .dock-toggle{
+    width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--clay);color:#fff;font-size:25px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 26px rgba(194,103,74,0.4);transition:transform .3s cubic-bezier(.2,.8,.2,1),background .2s;
+  }
+  .dock-toggle:hover{background:var(--brick);}
+  .dock.open .dock-toggle{transform:rotate(135deg);}
+  .dock-opts a:nth-child(1){transition-delay:.02s;}
+  .dock-opts a:nth-child(2){transition-delay:.06s;}
+  .dock-opts a:nth-child(3){transition-delay:.10s;}
+
+  /* ---------- WORK GRID ---------- */
+  .work-head{padding:64px 32px 8px;}
+  .work-head h1{font-family:var(--display);font-size:clamp(30px,5vw,46px);font-weight:500;letter-spacing:-0.02em;}
+  .work-head h1 .accent{color:var(--clay);font-style:italic;}
+  .work-head p{font-size:15px;color:var(--muted);margin-top:14px;max-width:520px;}
+  .work-grid{padding:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .work-grid .wcard:first-child{grid-column:1 / -1;}
+  .wcard{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:10px;cursor:pointer;background:var(--clay-mid);}
+  .wcard:first-child{aspect-ratio:21/9;}
+  .wcard .wfill{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);background:var(--clay-tint);transition:transform .6s ease;}
+  .wcard .wfill i{font-size:30px;opacity:.5;}
+  .wcard .wfill .fn{font-size:10px;font-family:var(--mono);margin-top:6px;opacity:.7;}
+  .wcard .wover{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;opacity:0;transition:opacity .35s ease;
+    background:linear-gradient(to top,rgba(18,11,7,0.85),rgba(18,11,7,0.15) 60%,transparent);}
+  .wcard:hover .wover{opacity:1;}
+  .wcard:hover .wfill{transform:scale(1.04);}
+  .wcard .wover .wnum{font-family:var(--mono);font-size:12px;color:#F0C4B0;}
+  .wcard .wover .wname{font-family:var(--display);font-size:24px;font-weight:500;color:#fff;line-height:1.1;margin-top:4px;}
+  .wcard .wover .wcat{font-size:12.5px;color:rgba(255,255,255,0.8);margin-top:5px;}
+
+  /* ---------- SKILLS ---------- */
+  .skills{padding:8px 32px 16px;border-top:0.5px solid var(--line);padding-top:28px;}
+  .skills .sk-title{font-family:var(--display);font-size:22px;font-weight:500;margin-bottom:22px;}
+  .skills .sk-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
+  .skills .sk-col .sk-lbl{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brick);margin-bottom:16px;}
+  .skbar{margin-bottom:15px;}
+  .skbar .skrow{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;}
+  .skbar .skrow .lvl{color:var(--hint);font-size:12px;}
+  .skbar .track{height:5px;background:var(--paper-2);border-radius:4px;overflow:hidden;}
+  .skbar .fill{height:100%;background:linear-gradient(to right,var(--clay),var(--brick));border-radius:4px;}
+  .softskills{display:flex;flex-wrap:wrap;gap:9px;}
+  .softskills .chip{font-size:13px;padding:7px 14px;border:0.5px solid var(--line-2);border-radius:20px;color:var(--ink);background:var(--paper);}
+
+  /* ---------- ABOUT: education line, tool circles, languages line ---------- */
+  .edu-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;padding:22px 32px;border-top:0.5px solid var(--line);}
+  .edu-line .k{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brick);}
+  .edu-line .v{font-size:14.5px;}
+  .edu-line .v b{font-weight:500;}
+  .edu-line .wes{font-size:12.5px;color:var(--hint);}
+  .tools-block{padding:8px 32px 16px;border-top:0.5px solid var(--line);padding-top:28px;}
+  .tools-block .sk-lbl{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brick);margin-bottom:20px;}
+  .tools-row{display:flex;flex-wrap:wrap;gap:26px;}
+  .tool{display:flex;flex-direction:column;align-items:center;gap:9px;width:80px;}
+  .tool .circ{width:60px;height:60px;border-radius:50%;border:0.5px solid var(--line-2);background:var(--paper);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;}
+  .tool .circ i{font-size:26px;color:var(--clay);}
+  .tool:hover .circ{background:var(--clay-tint);border-color:var(--clay);}
+  .tool .tname{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.3;}
+  .lang-line{display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px;padding:22px 32px 56px;border-top:0.5px solid var(--line);}
+  .lang-line .k{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brick);}
+  .lang-line .v{font-size:14px;}
+  .lang-line .v .lv{color:var(--hint);font-size:12.5px;}
+
+  @media(max-width:900px){
+    .work-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:680px){
+    .nav-inner{padding:13px 18px;}
+    .brand{font-size:13px;}
+    .brand-extra{display:none;}
+    .nav-links{gap:13px;font-size:12.5px;}
+    .lang-toggle{padding:3px 8px;font-size:12px;}
+
+    .hero,.vision,.contact,.about-intro,.xp,.skills,.tools-block,.windex,.section-head,.pmeta-row,.pintro,.chapter,.proj-top,.pfoot,.edu-line,.lang-line,.work-head,.centered-sub{padding-left:18px;padding-right:18px;}
+    .phero .htitle{padding-left:18px;padding-right:18px;}
+
+    .hello-hero{min-height:auto;padding:60px 18px 56px;}
+    h1.title{font-size:30px;}
+    .lede{font-size:15px;}
+    .statstrip{flex-direction:column;}
+    .statstrip .cell{border-right:none;border-bottom:0.5px solid var(--line);min-width:0;}
+    .statstrip .cell:last-child{border-bottom:none;}
+
+    .vision p{font-size:19px;}
+    .centered-head{gap:14px;padding:48px 18px 8px;}
+    .centered-head .hr{flex-basis:32px;}
+    .centered-head h1{font-size:24px;}
+
+    .about-intro{grid-template-columns:1fr;gap:22px;}
+    .portrait{width:96px;height:96px;}
+    .about-intro h1{font-size:23px;}
+    .xprow{grid-template-columns:1fr;gap:6px;}
+    .skills .sk-grid{grid-template-columns:1fr;gap:28px;}
+    .imgpair{grid-template-columns:1fr;}
+    .imgquad{grid-template-columns:1fr;}
+    .imgtall-row{grid-template-columns:1fr;}
+    .imgtall-row .imgslot.rtall{aspect-ratio:3/4;height:auto;}
+
+    .work-grid{grid-template-columns:1fr;padding:24px 18px;}
+    .work-grid .wcard:first-child{aspect-ratio:4/3;}
+    .wcard .wover{opacity:1;}            /* show titles by default on touch (no hover) */
+    .wcard .wover .wname{font-size:21px;}
+
+    .phero{aspect-ratio:4/5;}
+    .phero .htitle h1{font-size:30px;}
+    .pmeta-grid{grid-template-columns:1fr 1fr;gap:18px 16px;}
+    .pintro p{font-size:18px;}
+
+    .tools-row{gap:18px;justify-content:space-between;}
+    .tool{width:64px;}
+    .tool .circ{width:52px;height:52px;}
+    .tool .circ i{font-size:22px;}
+
+    .dock{right:16px;bottom:16px;}
+    footer.site{padding:24px 18px;flex-direction:column;}
+  }
+  @media(max-width:380px){
+    .nav-links{gap:10px;font-size:12px;}
+    .pmeta-grid{grid-template-columns:1fr;}
+    h1.title{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand" onclick="go('home')">Khair-Eddine Mohamed <span class="sep brand-extra">·</span> <span class="role brand-extra" data-en="architect &amp; CG artist" data-fr="architecte &amp; artiste 3D">architect &amp; CG artist</span></div>
+    <nav class="nav-links">
+      <a onclick="go('home')" data-nav="home" data-en="Hello" data-fr="Hello">Hello</a>
+      <a onclick="go('work')" data-nav="work" data-en="Work" data-fr="Projets">Work</a>
+      <a onclick="go('about')" data-nav="about" data-en="About" data-fr="À propos">About</a>
+      <a onclick="go('contact')" data-nav="contact" data-en="Contact" data-fr="Contact">Contact</a>
+      <span class="lang-toggle" onclick="toggleLang()"><span id="lang-en">EN</span> <span class="off" id="lang-fr">/ FR</span></span>
+    </nav>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<div class="dock" id="dock">
+  <div class="dock-opts">
+    <a onclick="location.href='mailto:khair.eddine.mohamed@outlook.com'" aria-label="Email"><i class="ti ti-mail"></i><span class="tip" data-en="Email" data-fr="E-mail">Email</span></a>
+    <a onclick="window.open('https://wa.me/21655999967','_blank')" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i><span class="tip">WhatsApp</span></a>
+    <a onclick="window.open('https://www.linkedin.com/in/khair-eddine-mohamed/','_blank')" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i><span class="tip">LinkedIn</span></a>
+  </div>
+  <button class="dock-toggle" id="dockToggle" aria-label="Contact" onclick="toggleDock()"><i class="ti ti-plus"></i></button>
+</div>
+
+<footer class="site">
+  <span>© 2026 Khair-Eddine Mohamed</span>
+  <span data-en="Architect &amp; CG Artist · Sousse, Tunisie" data-fr="Architecte &amp; Artiste 3D · Sousse, Tunisie">Architect &amp; CG Artist · Sousse, Tunisie</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.34.0/tabler-icons.min.css" rel="stylesheet"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.34.0/tabler-icons.min.css" rel="stylesheet">
+<script>
+/* ============ DATA ============ */
+const projects = [
+  {
+    id:"beach-house", num:"01",
+    name:"Beach House",
+    eyebrow:{en:"Private residence",fr:"Villa privée"},
+    loc:{en:"Nabeul, Tunisia",fr:"Nabeul, Tunisie"},
+    meta:{
+      style:{k:{en:"Design style",fr:"Style"},v:{en:"Contemporary villa",fr:"Villa contemporaine"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2024",fr:"2024"}},
+      area:{k:{en:"Area",fr:"Surface"},v:{en:"500 m² · 2 levels",fr:"500 m² · 2 niveaux"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS → EXE",fr:"APS → EXE"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Design + execution",fr:"Conception + exécution"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Blender",fr:"Revit · Blender"}}
+    },
+    idxMeta:{en:"Nabeul · 2024 · 500 m² · full lifecycle + quantities",fr:"Nabeul · 2024 · 500 m² · cycle complet + quantités"},
+    badge:{en:"APS → EXE",fr:"APS → EXE"},
+    hero:{cap:"Exploded axonometric",fn:"beachhouse_exploded_axo.png"},
+    intro:{en:"A minimalist beach villa where every surface is a material decision — built end to end in BIM.",
+            fr:"Une villa balnéaire minimaliste où chaque surface est un choix de matériau — conçue de bout en bout en BIM."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"Beach House follows a single, disciplined idea: let function and material carry the architecture, and remove everything else. The plan organizes living, service, and rest into clear volumes around a central pool, with circulation kept deliberately simple. Rather than decoration, the design relies on a tightly controlled material palette — brick, marble, and stone finishes — assigned room by room and read directly from the model.",
+             fr:"Beach House suit une idée unique et rigoureuse : laisser la fonction et la matière porter l'architecture, et retirer tout le reste. Le plan organise les espaces de vie, de service et de repos en volumes clairs autour d'une piscine centrale, avec une circulation volontairement simple. Plutôt que l'ornement, le projet repose sur une palette de matériaux maîtrisée — brique, marbre et pierre — attribuée pièce par pièce et lisible directement depuis la maquette."},
+       imgs:[
+         {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"beachhouse_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"beachhouse_plan_etage.png",icon:"ti-floor-plan"}]},
+         {tallRow:{tall:{r:"rtall",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"beachhouse_exploded_axo.png",icon:"ti-stack-2"},stack:[{r:"r169",cap:{en:"Sections",fr:"Coupes"},fn:"beachhouse_sections.png",icon:"ti-rulers"}]}}
+       ]},
+      {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
+       body:{en:"The villa was modeled entirely in Revit, from schematic design through execution documents. The set includes masonry plans, wall-section details at 1:50, and gridded building sections coordinated across two levels plus the roof and pergola. A particular focus was the intersection of the staircase and the façade glazing, resolved in both 2D detail and 3D to verify the geometry before construction. Material quantities — brick cladding, marble for stairs and sills, floor finishes by level and room — were extracted as schedules directly from the model.",
+             fr:"La villa a été entièrement modélisée sous Revit, de l'esquisse aux documents d'exécution. Le dossier comprend les plans de maçonnerie, des détails de coupe murale au 1:50 et des coupes sur trame coordonnées sur deux niveaux plus la toiture et la pergola. Une attention particulière a porté sur l'intersection de l'escalier et du vitrage de façade, résolue en détail 2D et en 3D pour vérifier la géométrie avant chantier. Les quantités de matériaux — habillage brique, marbre des escaliers et appuis, revêtements de sol par niveau et par pièce — ont été extraites sous forme de nomenclatures directement depuis la maquette."},
+       imgs:[
+         {r:"rstrip",cap:{en:"Door detailing",fr:"Détails des portes"},fn:"beachhouse_doors.png",icon:"ti-door"},
+         {pair:[{r:"r43",cap:{en:"Stair detailing",fr:"Détails escalier"},fn:"beachhouse_stairs.png",icon:"ti-stairs"},{r:"r43",cap:{en:"Quantity schedules",fr:"Nomenclatures"},fn:"beachhouse_quantities.png",icon:"ti-table"}]}
+       ]},
+      {head:{en:"Visualization",fr:"Visualisation"},sub:{en:"rendu",fr:"rendu"},
+       body:null,
+       imgs:[{r:"r219",warm:true,cap:{en:"Interior render (Blender)",fr:"Rendu intérieur (Blender)"},fn:"beachhouse_render_01.png"}]}
+    ]
+  },
+  {
+    id:"zollner", num:"02",
+    name:"Zollner Production Unit",
+    eyebrow:{en:"Industrial facility",fr:"Bâtiment industriel"},
+    loc:{en:"Sousse, Tunisia",fr:"Sousse, Tunisie"},
+    meta:{
+      style:{k:{en:"Type",fr:"Type"},v:{en:"Industrial production",fr:"Production industrielle"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2025",fr:"2025"}},
+      area:{k:{en:"Area",fr:"Surface"},v:{en:"4 000 m² · 2 levels",fr:"4 000 m² · 2 niveaux"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS + Permis",fr:"APS + Permis"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Design + BIM coordination",fr:"Conception + coordination BIM"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · IFC · Lumion",fr:"Revit · IFC · Lumion"}}
+    },
+    idxMeta:{en:"Sousse · 2025 · 4 000 m² · IFC federation + clash detection",fr:"Sousse · 2025 · 4 000 m² · fédération IFC + détection de conflits"},
+    badge:{en:"Permis",fr:"Permis"},
+    hero:{cap:"Site axonometric / branded exterior",fn:"zollner_hero.png"},
+    intro:{en:"A 4,000 m² production facility coordinated across four disciplines — architecture aligned to engineering, model to model.",
+            fr:"Une unité de production de 4 000 m² coordonnée sur quatre disciplines — l'architecture alignée à l'ingénierie, maquette contre maquette."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"Zollner is an industrial production unit designed around the realities of how a factory is built and run. The architecture had to satisfy two external frameworks at once: Tunisian industrial building norms and the client's own factory architectural booklet, which fixes standards across their facilities. The design works within those constraints rather than against them — a clear structural rhythm, an efficient envelope, and a site organization that handles circulation, loading, and landscaping at scale.",
+             fr:"Zollner est une unité de production industrielle conçue selon les réalités de construction et d'exploitation d'une usine. L'architecture devait satisfaire deux cadres externes à la fois : les normes tunisiennes du bâtiment industriel et le cahier architectural du client, qui fixe les standards de ses installations. Le projet compose avec ces contraintes plutôt que contre elles — une trame structurelle claire, une enveloppe efficace, et une organisation de site gérant circulation, logistique et paysage à grande échelle."},
+       imgs:[
+         {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"zollner_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"zollner_plan_etage.png",icon:"ti-floor-plan"}]},
+         {tallRow:{tall:{r:"rtall",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"zollner_exploded_axo.png",icon:"ti-stack-2"},stack:[{r:"r43",cap:{en:"General axonometric 1",fr:"Axonométrie générale 1"},fn:"zollner_axo_01.png",icon:"ti-box"},{r:"r43",cap:{en:"General axonometric 2",fr:"Axonométrie générale 2"},fn:"zollner_axo_02.png",icon:"ti-box"}]}}
+       ]},
+      {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
+       body:{en:"This project was a federated BIM effort. Structural, HVAC, and electrical engineers each delivered their models as IFC files, which were integrated and coordinated against the architectural model in Revit. Beyond aligning the architecture to the structural grid, I ran clash detection across the federated model — identifying and resolving conflicts between disciplines before they reached the site. The deliverable was a full permis de bâtir set — plans, elevations on all faces, and long-span building sections — produced to regulatory standard for a 4,000 m² facility spanning ground and upper levels.",
+             fr:"Ce projet a été un travail BIM fédéré. Les ingénieurs structure, CVC et électricité ont chacun livré leur maquette au format IFC, intégrée et coordonnée avec la maquette architecturale sous Revit. Au-delà de l'alignement de l'architecture sur la trame structurelle, j'ai mené la détection de conflits (clash detection) sur la maquette fédérée — identifiant et résolvant les conflits entre disciplines avant qu'ils n'atteignent le chantier. Le livrable était un dossier complet de permis de bâtir — plans, façades sur toutes les faces et coupes de grande portée — produit aux normes réglementaires pour une installation de 4 000 m² répartie sur rez-de-chaussée et étage."},
+       imgs:[{r:"rstrip",cap:{en:"Building sections",fr:"Coupes"},fn:"zollner_sections.png",icon:"ti-rulers"}]},
+      {head:{en:"Visualization",fr:"Visualisation"},sub:{en:"rendu",fr:"rendu"},
+       body:null,
+       imgs:[{r:"r219",warm:true,cap:{en:"Exterior render (Lumion)",fr:"Rendu extérieur (Lumion)"},fn:"zollner_render_01.png"}]}
+    ]
+  },
+  {
+    id:"office", num:"03",
+    name:"Office Design",
+    eyebrow:{en:"Workspace · Bureautique",fr:"Espace de travail"},
+    loc:{en:"Tunis, Tunisia",fr:"Tunis, Tunisie"},
+    meta:{
+      style:{k:{en:"Type",fr:"Type"},v:{en:"Office interior",fr:"Aménagement bureau"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2024",fr:"2024"}},
+      area:{k:{en:"Area",fr:"Surface"},v:{en:"250 m² · 1 level",fr:"250 m² · 1 niveau"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS → EXE",fr:"APS → EXE"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Design + execution",fr:"Conception + exécution"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Blender",fr:"Revit · Blender"}}
+    },
+    idxMeta:{en:"Tunis · 2024 · 250 m² · detailing & coordinated routing",fr:"Tunis · 2024 · 250 m² · détails & réseaux coordonnés"},
+    badge:{en:"APS → EXE",fr:"APS → EXE"},
+    hero:{cap:"Reception / interior render",fn:"office_hero.png"},
+    intro:{en:"A 250 m² office resolved down to the millwork — every corner detailed, every service routed.",
+            fr:"Un bureau de 250 m² résolu jusqu'à la menuiserie — chaque angle détaillé, chaque réseau tracé."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"The office occupies an irregular, non-orthogonal floor plate, which became the design's organizing problem rather than a limitation. Program is arranged to make the geometry work — a coworking zone, manager's office, meeting room, reception, and a compact service core with kitchenette and WCs — each shaped to the angled perimeter. The result is a workspace that feels intentional rather than constrained by its footprint.",
+             fr:"Le bureau occupe une emprise irrégulière et non orthogonale, devenue le principe organisateur du projet plutôt qu'une limite. Le programme est disposé pour faire fonctionner cette géométrie — espace de coworking, bureau du manager, salle de réunion, accueil et un noyau de services compact avec kitchenette et sanitaires — chacun ajusté au périmètre en biais. Il en résulte un espace de travail qui paraît intentionnel plutôt que contraint par son emprise."},
+       imgs:[{r:"r169",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"office_plan_rdc.png",icon:"ti-floor-plan"}]},
+      {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
+       body:{en:"Modeled in Revit from concept through execution, the office is documented to a fine level of detail. Custom families were authored for specific elements — including a biometric-lock entry door and the joinery units — and the set carries door and window schedules, a reflected ceiling plan, and millwork details drawn at 1:25. HVAC and plumbing routing, including buried-conduit runs, were coordinated and annotated across the false-ceiling plan, resolving how services occupy the ceiling void before installation.",
+             fr:"Modélisé sous Revit de la conception à l'exécution, le bureau est documenté à un niveau de détail fin. Des familles personnalisées ont été créées pour des éléments spécifiques — dont une porte d'entrée à serrure biométrique et les éléments de menuiserie — et le dossier comprend les nomenclatures de portes et fenêtres, un plan de faux-plafond et des détails de mobilier au 1:25. Les réseaux CVC et plomberie, y compris les conduites enterrées, ont été coordonnés et annotés sur le plan de faux-plafond, résolvant l'occupation du plénum avant la pose."},
+       imgs:[
+         {quad:[
+           {r:"rsquare",cap:{en:"Detail — space 1",fr:"Détail — espace 1"},fn:"office_space_01.png",icon:"ti-ruler-2"},
+           {r:"rsquare",cap:{en:"Detail — space 2",fr:"Détail — espace 2"},fn:"office_space_02.png",icon:"ti-ruler-2"},
+           {r:"rsquare",cap:{en:"Detail — space 3",fr:"Détail — espace 3"},fn:"office_space_03.png",icon:"ti-ruler-2"},
+           {r:"rsquare",cap:{en:"Detail — space 4",fr:"Détail — espace 4"},fn:"office_space_04.png",icon:"ti-ruler-2"}
+         ]},
+         {pair:[{r:"r43",cap:{en:"Clean water system",fr:"Réseau d'eau potable"},fn:"office_water.png",icon:"ti-droplet"},{r:"r43",cap:{en:"Drainage system",fr:"Réseau d'évacuation"},fn:"office_drainage.png",icon:"ti-pipe"}]}
+       ]},
+      {head:{en:"Visualization",fr:"Visualisation"},sub:{en:"rendu",fr:"rendu"},
+       body:null,
+       imgs:[{pair:[{r:"r43",warm:true,cap:{en:"Interior render 1 (Blender)",fr:"Rendu intérieur 1 (Blender)"},fn:"office_render_01.png"},{r:"r43",warm:true,cap:{en:"Interior render 2 (Blender)",fr:"Rendu intérieur 2 (Blender)"},fn:"office_render_02.png"}]}]}
+    ]
+  },
+  {
+    id:"villa-mouslem", num:"04",
+    name:"Villa Mouslem",
+    eyebrow:{en:"Private residence",fr:"Villa privée"},
+    loc:{en:"Sousse, Tunisia",fr:"Sousse, Tunisie"},
+    meta:{
+      style:{k:{en:"Design style",fr:"Style"},v:{en:"Contemporary villa",fr:"Villa contemporaine"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2025",fr:"2025"}},
+      area:{k:{en:"Area",fr:"Surface"},v:{en:"950 m² · 3 levels",fr:"950 m² · 3 niveaux"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS → EXE",fr:"APS → EXE"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Design + execution",fr:"Conception + exécution"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Lumion",fr:"Revit · Lumion"}}
+    },
+    idxMeta:{en:"Sousse · 2025 · 950 m² · structure integration, custom minaret",fr:"Sousse · 2025 · 950 m² · intégration structure, minaret sur mesure"},
+    badge:{en:"APS → EXE",fr:"APS → EXE"},
+    hero:{cap:"Exterior render / 3D view",fn:"villamouslem_hero.png"},
+    intro:{en:"A 950 m² residence across three levels, modeled from sub-soil to minaret in coordinated BIM.",
+            fr:"Une résidence de 950 m² sur trois niveaux, modélisée du sous-sol au minaret en BIM coordonné."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"Villa Mouslem is a generous private residence organized over three levels — basement, ground floor, and upper floor — totaling around 950 m². The design balances the scale of the program with a clear architectural identity, anchored by a custom minaret that gives the house its distinctive silhouette and required dedicated modeling beyond standard library elements.",
+             fr:"Villa Mouslem est une résidence privée généreuse organisée sur trois niveaux — sous-sol, rez-de-chaussée et étage — totalisant environ 950 m². Le projet équilibre l'ampleur du programme et une identité architecturale claire, ancrée par un minaret sur mesure qui donne à la maison sa silhouette distinctive et a nécessité une modélisation dédiée, au-delà des éléments de bibliothèque standard."},
+       imgs:[
+         {quad:[
+           {r:"r43",cap:{en:"Plan sous-sol",fr:"Plan sous-sol"},fn:"villamouslem_plan_soussol.png",icon:"ti-floor-plan"},
+           {r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"villamouslem_plan_rdc.png",icon:"ti-floor-plan"},
+           {r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"villamouslem_plan_etage.png",icon:"ti-floor-plan"},
+           {r:"r43",cap:{en:"3D axonometric",fr:"Axonométrie 3D"},fn:"villamouslem_axo.png",icon:"ti-3d-cube-sphere"}
+         ]}
+       ]},
+      {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
+       body:{en:"The villa was developed as a complete execution model in Revit. The structural engineer's model was integrated into the project, with the architecture coordinated against it across all three levels. The documentation set is comprehensive — architectural plans, masonry plans, a joinery location plan, reflected ceiling plans, sections, and elevations — with sheets organized by phase and quantities extracted from the model. The minaret was modeled as bespoke geometry, demonstrating the ability to take non-standard architectural elements to execution-level detail.",
+             fr:"La villa a été développée comme une maquette d'exécution complète sous Revit. La maquette de l'ingénieur structure a été intégrée au projet, l'architecture étant coordonnée avec elle sur les trois niveaux. Le dossier de documentation est complet — plans architecturaux, plans de maçonnerie, plan de repérage menuiserie, plans de faux-plafond, coupes et façades — avec des feuilles organisées par phase et des quantités extraites de la maquette. Le minaret a été modélisé comme une géométrie sur mesure, démontrant la capacité à mener des éléments architecturaux non standard jusqu'au niveau d'exécution."},
+       imgs:[{pair:[{r:"r43",cap:{en:"Section",fr:"Coupe"},fn:"villamouslem_section.png",icon:"ti-rulers"},{r:"r43",cap:{en:"Elevation",fr:"Façade"},fn:"villamouslem_elevation.png",icon:"ti-building"}]}]},
+      {head:{en:"Visualization",fr:"Visualisation"},sub:{en:"rendu",fr:"rendu"},
+       body:null,
+       imgs:[
+         {r:"r219",warm:true,cap:{en:"Exterior render 1 (Lumion)",fr:"Rendu extérieur 1 (Lumion)"},fn:"villamouslem_render_01.png"},
+         {pair:[{r:"r43",warm:true,cap:{en:"Render 2",fr:"Rendu 2"},fn:"villamouslem_render_02.png"},{r:"r43",warm:true,cap:{en:"Render 3",fr:"Rendu 3"},fn:"villamouslem_render_03.png"}]}
+       ]}
+    ]
+  },
+  {
+    id:"social-housing", num:"05",
+    name:"Social Housing",
+    eyebrow:{en:"Social housing",fr:"Logement social"},
+    loc:{en:"Riffa, Bahrain",fr:"Riffa, Bahreïn"},
+    meta:{
+      style:{k:{en:"Type",fr:"Type"},v:{en:"3 duplexes",fr:"3 duplex"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2023",fr:"2023"}},
+      area:{k:{en:"Area",fr:"Surface"},v:{en:"~200 m²/unit · 10×10 m",fr:"~200 m²/unité · 10×10 m"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS / concept",fr:"APS / concept"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Concept + design",fr:"Concept + conception"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Lumion",fr:"Revit · Lumion"}}
+    },
+    idxMeta:{en:"Riffa, Bahrain · 2023 · 3 duplexes · concept + visualization",fr:"Riffa, Bahreïn · 2023 · 3 duplex · concept + visualisation"},
+    badge:{en:"Concept",fr:"Concept"},
+    hero:{cap:"3D sectional axonometric",fn:"socialhousing_hero.png"},
+    intro:{en:"Three duplexes packed onto a 10×10 grid — social housing as an exercise in efficient living.",
+            fr:"Trois duplex sur une trame de 10×10 — le logement social comme exercice d'habitat efficace."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"This social housing study explores how to fit dignified, livable homes into a tight footprint. Three duplex units are organized on a compact 10×10 m grid, each occupying roughly 200 m² across two levels. The challenge was density without compromise — giving each unit clear separation, daylight, and a sense of its own identity within a repeating structure. The design was taken into Revit at concept stage and developed through 3D sectional studies and cinematic visualization.",
+             fr:"Cette étude de logement social explore comment inscrire des habitations dignes et confortables dans une emprise réduite. Trois duplex sont organisés sur une trame compacte de 10×10 m, chacun occupant environ 200 m² sur deux niveaux. L'enjeu était la densité sans compromis — donner à chaque logement une séparation claire, de la lumière et une identité propre au sein d'une structure répétitive. Le projet a été porté sous Revit au stade conception et développé par des études en coupe 3D et une visualisation cinématique."},
+       imgs:[{pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"socialhousing_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"socialhousing_plan_etage.png",icon:"ti-floor-plan"}]}]},
+      {head:{en:"Approach & visualization",fr:"Approche & visualisation"},sub:null,
+       body:{en:"The project was modeled in Revit and visualized in Lumion. Rather than a full execution set, the focus here was on testing the spatial concept early — using 3D cutaway axonometrics to study how the duplex sections stack and interlock, and cinematic renders to communicate the exterior massing and material intent.",
+             fr:"Le projet a été modélisé sous Revit et visualisé sous Lumion. Plutôt qu'un dossier d'exécution complet, l'accent a porté ici sur le test du concept spatial en amont — à l'aide d'axonométries écorchées 3D pour étudier l'imbrication des coupes de duplex, et de rendus cinématiques pour communiquer la volumétrie extérieure et l'intention matérielle."},
+       imgs:[
+         {pair:[{r:"r43",cap:{en:"3D sectional axo 1",fr:"Axonométrie écorchée 1"},fn:"socialhousing_axo_01.png",icon:"ti-stack-2"},{r:"r43",cap:{en:"3D sectional axo 2",fr:"Axonométrie écorchée 2"},fn:"socialhousing_axo_02.png",icon:"ti-stack-2"}]},
+         {pair:[{r:"r43",warm:true,cap:{en:"Cinematic render 1",fr:"Rendu cinématique 1"},fn:"socialhousing_render_01.png"},{r:"r43",warm:true,cap:{en:"Cinematic render 2",fr:"Rendu cinématique 2"},fn:"socialhousing_render_02.png"}]}
+       ]}
+    ]
+  },
+  {
+    id:"housing-units", num:"06",
+    name:"Housing Units",
+    eyebrow:{en:"Multi-unit residential",fr:"Résidentiel collectif"},
+    loc:{en:"Les Berges du Lac, Tunisia",fr:"Les Berges du Lac, Tunisie"},
+    meta:{
+      style:{k:{en:"Type",fr:"Type"},v:{en:"23-unit building",fr:"Immeuble 23 logements"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2025",fr:"2025"}},
+      area:{k:{en:"Units",fr:"Logements"},v:{en:"23 units · 4 prototypes",fr:"23 unités · 4 prototypes"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"APS / concept",fr:"APS / concept"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Concept + design",fr:"Concept + conception"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Blender",fr:"Revit · Blender"}}
+    },
+    idxMeta:{en:"Les Berges du Lac · 2025 · 23 units · typologies + moodboard",fr:"Les Berges du Lac · 2025 · 23 unités · typologies + moodboard"},
+    badge:{en:"Concept",fr:"Concept"},
+    hero:{cap:"Material moodboard render",fn:"housingunits_hero.png"},
+    intro:{en:"Twenty-three apartments, four prototypes — residential variety designed at building scale.",
+            fr:"Vingt-trois appartements, quatre prototypes — la variété résidentielle pensée à l'échelle du bâtiment."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"This residential building brings together 23 apartments across a range of configurations, from compact S+1 flats to generous S+4 duplexes. The work focused on the unit mix — designing four representative prototypes that each resolve their own plan logic, daylight, and outdoor space while sharing a coherent architectural language across the building. The aim was variety without fragmentation: distinct homes that still read as one project.",
+             fr:"Ce bâtiment résidentiel réunit 23 appartements aux configurations variées, du S+1 compact au duplex S+4 généreux. Le travail s'est concentré sur la mixité des typologies — concevoir quatre prototypes représentatifs résolvant chacun sa propre logique de plan, sa lumière et ses espaces extérieurs, tout en partageant un langage architectural cohérent à l'échelle du bâtiment. L'objectif : la variété sans fragmentation — des logements distincts qui se lisent malgré tout comme un seul projet."},
+       imgs:[
+         {quad:[
+           {r:"r43",cap:{en:"Typology S+1",fr:"Typologie S+1"},fn:"housingunits_type_s1.png",icon:"ti-layout-grid"},
+           {r:"r43",cap:{en:"Typology S+2",fr:"Typologie S+2"},fn:"housingunits_type_s2.png",icon:"ti-layout-grid"},
+           {r:"r43",cap:{en:"Typology S+3 duplex",fr:"Typologie S+3 duplex"},fn:"housingunits_type_s3.png",icon:"ti-layout-grid"},
+           {r:"r43",cap:{en:"Typology S+4",fr:"Typologie S+4"},fn:"housingunits_type_s4.png",icon:"ti-layout-grid"}
+         ]}
+       ]},
+      {head:{en:"Approach & visualization",fr:"Approche & visualisation"},sub:null,
+       body:{en:"Each prototype was modeled in Revit with matching 3D cutaways, presented as a typology board that pairs plans with spatial views and unit data — surface, configuration, and occupancy. Material intent was developed through a dedicated moodboard render, mapping finishes across the apartment: wood-decked terraces, grey and black marble, white bathroom stone, and clostras used to filter light and protect privacy. The visualization communicates how the units would feel to live in, not just how they're arranged.",
+             fr:"Chaque prototype a été modélisé sous Revit avec ses axonométries écorchées, présenté sous forme de planche de typologies associant plans, vues spatiales et données par logement — surface, configuration et occupation. L'intention matérielle a été développée via un rendu moodboard dédié, cartographiant les finitions de l'appartement : terrasses en platelage bois, marbre gris et noir, pierre blanche en salle de bain, et claustras filtrant la lumière et préservant l'intimité."},
+       imgs:[{r:"r169",warm:true,cap:{en:"Material moodboard (Blender)",fr:"Moodboard matériaux (Blender)"},fn:"housingunits_moodboard.png"}]}
+    ]
+  },
+  {
+    id:"coffee-booth", num:"07",
+    name:"Coffee Booth",
+    eyebrow:{en:"Product · قهيوة عسل",fr:"Produit · قهيوة عسل"},
+    loc:{en:"Self-initiated concept",fr:"Concept auto-initié"},
+    meta:{
+      style:{k:{en:"Type",fr:"Type"},v:{en:"Portable product",fr:"Produit portable"}},
+      year:{k:{en:"Year",fr:"Année"},v:{en:"2026",fr:"2026"}},
+      area:{k:{en:"Footprint",fr:"Emprise"},v:{en:"~2.45 m compact",fr:"~2,45 m compact"}},
+      phase:{k:{en:"Phase",fr:"Phase"},v:{en:"POC → fabrication",fr:"POC → fabrication"}},
+      role:{k:{en:"Role",fr:"Rôle"},v:{en:"Self-initiated · all",fr:"Auto-initié · tout"}},
+      tools:{k:{en:"Tools",fr:"Outils"},v:{en:"Revit · Blender",fr:"Revit · Blender"}}
+    },
+    idxMeta:{en:"Self-initiated · 2026 · custom families · fabrication docs",fr:"Auto-initié · 2026 · familles sur mesure · dossier de fabrication"},
+    badge:{en:"Product",fr:"Produit"},
+    hero:{cap:"Coffee booth — branded render",fn:"coffeebooth_hero.png"},
+    intro:{en:"قهيوة عسل — a portable coffee booth, self-initiated and engineered from the family up.",
+            fr:"قهيوة عسل — un kiosque à café portable, auto-initié et conçu depuis la famille paramétrique."},
+    chapters:[
+      {head:{en:"Concept",fr:"Concept"},sub:null,
+       body:{en:"قهيوة عسل (\u201choney coffee\u201d) is a self-initiated product concept: a compact, portable coffee booth designed to drop into malls, events, parks, and small outdoor spaces. The brief was my own — make something practical, warm, and quick to deploy. The design uses gentle curves, clean lines, and a warm palette to feel welcoming anywhere it lands, and assembles in three simple steps so it can be set up and serving in minutes.",
+             fr:"قهيوة عسل (« café au miel ») est un concept produit auto-initié : un kiosque à café compact et portable, pensé pour s'installer dans les centres commerciaux, les événements, les parcs et les petits espaces extérieurs. Le brief était le mien — créer un objet pratique, chaleureux et rapide à déployer. Le design joue de courbes douces, de lignes nettes et d'une palette chaude pour rester accueillant partout où il se pose, et se monte en trois étapes simples."},
+       imgs:[{r:"rstrip",cap:{en:"Isometric — compact to in-use",fr:"Isométrie — du compact à l'usage"},fn:"coffeebooth_isometric.png",icon:"ti-arrows-maximize"}]},
+      {head:{en:"System & fabrication",fr:"Système & fabrication"},sub:{en:"the product spine",fr:"l'épine produit"},
+       body:{en:"Unlike the building projects, this was approached as a product. Every component — from the counter body to the canopy and supports — was authored as a custom Revit family by me, then broken down into a full fabrication set: isometric, exploded, and orthographic views, with each part (SE-00 through SE-07) dimensioned and quantified. The result is a buildable component system, taken from proof of concept through construction-ready documentation, and visualized in Blender as a finished, brandable object.",
+             fr:"Contrairement aux projets de bâtiment, celui-ci a été abordé comme un produit. Chaque composant — du corps du comptoir à l'auvent et aux supports — a été créé comme une famille Revit personnalisée, puis décliné en un dossier de fabrication complet : vues isométrique, éclatée et orthographiques, chaque pièce (SE-00 à SE-07) cotée et quantifiée. Le résultat est un système de composants constructible, mené de la preuve de concept à une documentation prête pour la fabrication, et visualisé sous Blender comme un objet fini et personnalisable."},
+       imgs:[
+         {r:"r169",cap:{en:"Component layout & detailing — SE-00 to SE-07",fr:"Plan & détails des composants — SE-00 à SE-07"},fn:"coffeebooth_components.png",icon:"ti-components"},
+         {pair:[{r:"r43",cap:{en:"Front elevation",fr:"Élévation avant"},fn:"coffeebooth_front.png",icon:"ti-layout-align-bottom"},{r:"r43",cap:{en:"Back elevation",fr:"Élévation arrière"},fn:"coffeebooth_back.png",icon:"ti-layout-align-top"}]},
+         {pair:[{r:"r43",warm:true,cap:{en:"Render 1 (Blender)",fr:"Rendu 1 (Blender)"},fn:"coffeebooth_render_01.png"},{r:"r43",warm:true,cap:{en:"Render 2 (Blender)",fr:"Rendu 2 (Blender)"},fn:"coffeebooth_render_02.png"}]}
+       ]}
+    ]
+  }
+];
+
+/* ============ STATE ============ */
+let lang = "en";
+let current = "home";
+
+/* ============ RENDER HELPERS ============ */
+function t(obj){ return obj ? (obj[lang] || obj.en) : ""; }
+
+function imgSlot(img){
+  const warm = img.warm ? " warm" : "";
+  const r = img.r || "r43";
+  const icon = img.icon || "ti-photo";
+  return `<div class="imgslot ${r}${warm}">
+    <i class="ti ${icon}"></i>
+    <div class="cap">${t(img.cap)}</div>
+    <div class="fn">${img.fn}</div>
+  </div>`;
+}
+function imgBlock(item){
+  if(item.pair){
+    return `<div class="imgpair">${item.pair.map(imgSlot).join("")}</div>`;
+  }
+  if(item.quad){
+    return `<div class="imgquad">${item.quad.map(imgSlot).join("")}</div>`;
+  }
+  if(item.tallRow){
+    // a tall vertical image beside stacked smaller images
+    return `<div class="imgtall-row">
+      ${imgSlot(item.tallRow.tall)}
+      <div style="display:flex;flex-direction:column;gap:16px;">${item.tallRow.stack.map(imgSlot).join("")}</div>
+    </div>`;
+  }
+  return imgSlot(item);
+}
+
+function renderHome(){
+  const rows = projects.map(p=>`
+    <div class="wrow" onclick="go('${p.id}')">
+      <span class="idx">${p.num}</span>
+      <div>
+        <div class="pname">${p.name}</div>
+        <div class="pmeta">${t(p.idxMeta)}</div>
+      </div>
+      <span class="badge">${t(p.badge)} <i class="ti ti-arrow-right arrow" style="font-size:13px"></i></span>
+    </div>`).join("");
+  // rotating background slides — replace fn list with real image paths after upload
+  const bgImages = ["hello_bg_01.jpg","hello_bg_02.jpg","hello_bg_03.jpg","hello_bg_04.jpg"];
+  const slides = bgImages.map((src,i)=>
+    `<div class="slide placeholder${i===0?' on':''}" data-src="images/${src}"><span>images/${src}</span></div>`
+  ).join("");
+  return `
+  <section class="hello-hero">
+    <div class="hello-bg" id="helloBg">${slides}</div>
+    <div class="hello-scrim"></div>
+    <div class="hello-inner">
+      <div class="eyebrow"><span class="tick"></span><span>${lang==='en'?'BIM & 3D Architecture Portfolio':'Portfolio architecture BIM & 3D'}</span></div>
+      <h1 class="title">${lang==='en'
+        ? `From concept to construction,<br><span class="accent">built in BIM — brought to life in 3D.</span>`
+        : `Du concept à la construction,<br><span class="accent">conçu en BIM — révélé en 3D.</span>`}</h1>
+      <p class="lede">${lang==='en'
+        ? `Architect & 3D artist based in Sousse, Tunisia. I turn abstract concepts into construction-ready solutions — from APS to EXE, driven by Revit and high-fidelity visualization.`
+        : `Architecte & artiste 3D basé à Sousse, Tunisie. Je transforme des concepts abstraits en solutions prêtes pour la construction — de l'APS à l'EXE, pilotées par Revit et la visualisation haute fidélité.`}</p>
+      <div class="statstrip">
+        <div class="cell"><div class="num">40+</div><div class="lbl">${lang==='en'?'Projects delivered':'Projets livrés'}</div></div>
+        <div class="cell"><div class="num">IFC</div><div class="lbl">${lang==='en'?'Multi-discipline coordination':'Coordination multidisciplinaire'}</div></div>
+        <div class="cell"><div class="num">APS → EXE</div><div class="lbl">${lang==='en'?'Full lifecycle':'Cycle complet'}</div></div>
+        <div class="cell"><div class="num">4.5/5</div><div class="lbl">${lang==='en'?'Client satisfaction':'Satisfaction client'}</div></div>
+      </div>
+    </div>
+  </section>
+  <div class="section-head">
+    <h2>${lang==='en'?'Selected work':'Travaux sélectionnés'} <span class="fr">${lang==='en'?'— 7 projects':'— 7 projets'}</span></h2>
+    <span class="yr">2023 — 2026</span>
+  </div>
+  <div class="windex">${rows}</div>
+  <section class="vision">
+    <div class="v-eyebrow">${lang==='en'?'Vision':'Vision'}</div>
+    <p>${lang==='en'
+      ? `I believe architecture is decided long before the first wall — in how clearly a space is thought through. My work lives where technical precision meets visual storytelling: BIM gives a project its rigor and its data, while high-fidelity 3D gives it a soul people can feel before it exists. I design to close the gap between intention and construction — so what a client imagines, what I model, and what finally gets built are the same thing.`
+      : `Je crois que l'architecture se décide bien avant le premier mur — dans la clarté avec laquelle un espace est pensé. Mon travail se situe à la rencontre de la précision technique et de la narration visuelle : le BIM donne au projet sa rigueur et ses données, tandis que la 3D haute fidélité lui donne une âme que l'on ressent avant même qu'il existe. Je conçois pour effacer l'écart entre l'intention et la construction — afin que ce que le client imagine, ce que je modélise et ce qui se construit ne fassent qu'un.`}</p>
+  </section>`;
+}
+
+function renderWork(){
+  const cards = projects.map(p=>`
+    <div class="wcard" onclick="go('${p.id}')">
+      <div class="wfill"><i class="ti ti-photo"></i><div class="fn">${p.hero.fn}</div></div>
+      <div class="wover">
+        <div class="wnum">${p.num}</div>
+        <div class="wname">${p.name}</div>
+        <div class="wcat">${t(p.eyebrow)} · ${t(p.loc)}</div>
+      </div>
+    </div>`).join("");
+  return `
+  <div class="centered-head">
+    <span class="hr"></span>
+    <h1>${lang==='en'?'Work':'Projets'}</h1>
+    <span class="hr"></span>
+  </div>
+  <p class="centered-sub">${lang==='en'?'Step inside seven projects — from concept and coordination to the finished render. Pick one to explore.':'Entrez dans sept projets — du concept et de la coordination jusqu\'au rendu final. Choisissez-en un à explorer.'}</p>
+  <div class="work-grid">${cards}</div>`;
+}
+
+function renderProject(p, i){
+  const count = `${p.num} / 07`;
+  const next = projects[(i+1)%projects.length];
+  const metaCells = Object.values(p.meta).map(m=>`
+    <div><div class="k">${t(m.k)}</div><div class="v${m.k.en==='Phase'?' phase':''}">${t(m.v)}</div></div>`).join("");
+  const chapters = p.chapters.map(ch=>`
+    <div class="chapter">
+      <div class="ch-head">${t(ch.head)}${ch.sub?` <span class="sub">— ${t(ch.sub)}</span>`:''}</div>
+      ${ch.body?`<div class="ch-body">${t(ch.body)}</div>`:''}
+      <div class="chapter-imgs">${ch.imgs.map(imgBlock).join("")}</div>
+    </div>`).join("");
+  return `
+  <div class="proj-top">
+    <span class="back" onclick="go('home')"><span class="a">←</span> ${lang==='en'?'Work':'Projets'}</span>
+    <span class="count">${count}</span>
+  </div>
+  <div class="phero">
+    <div class="ph-fill"><i class="ti ti-photo"></i><div class="cap">${lang==='en'?'Hero':'Image principale'} — ${p.hero.cap}</div><div class="fn">${p.hero.fn}</div></div>
+    <div class="scrim"></div>
+    <div class="htitle">
+      <div class="eb"><span class="tick"></span><span>${t(p.eyebrow)}</span></div>
+      <h1>${p.name}</h1>
+      <div class="loc"><i class="ti ti-map-pin" style="font-size:14px"></i> ${t(p.loc)}</div>
+    </div>
+  </div>
+  <div class="pmeta-row"><div class="pmeta-grid">${metaCells}</div></div>
+  <div class="pintro"><p>${t(p.intro)}</p></div>
+  ${chapters}
+  <div class="pfoot">
+    <span class="back" onclick="go('home')">← ${lang==='en'?'Back to work':'Retour aux projets'}</span>
+    <span class="next" onclick="go('${next.id}')">${lang==='en'?'Next':'Suivant'} — ${next.name} →</span>
+  </div>`;
+}
+
+function renderAbout(){
+  return `
+  <section class="about-intro">
+    <div class="portrait"><span>KM</span></div>
+    <div>
+      <div class="eyebrow"><span class="tick"></span><span>${lang==='en'?'About':'À propos'}</span></div>
+      <h1>${lang==='en'
+        ? 'Hi, I\'m Khair-Eddine — architect, 3D artist, and a maker at heart.'
+        : 'Bonjour, je suis Khair-Eddine — architecte, artiste 3D, et créateur dans l\'âme.'}</h1>
+      <p class="bio">${lang==='en'
+        ? 'I\'m based in Sousse, Tunisia, and I\'ve spent the last several years moving between the technical world of BIM and the expressive world of visualization — and I\'ve never wanted to choose between them. The overlap is where I do my best work. I care about getting the details right, but just as much about how a space makes someone feel when they walk in.'
+        : 'Je suis basé à Sousse, en Tunisie, et j\'ai passé ces dernières années à naviguer entre le monde technique du BIM et le monde expressif de la visualisation — sans jamais vouloir choisir entre les deux. C\'est dans cette intersection que je donne le meilleur de moi-même. J\'attache autant d\'importance à la justesse des détails qu\'à la manière dont un espace fait ressentir quelque chose à celui qui y entre.'}</p>
+      <p class="bio" style="margin-top:14px;">${lang==='en'
+        ? 'Outside the model and the render, I\'m endlessly curious — I make music, I\'m always learning something new, and I\'m drawn to work that lets me build something from nothing. I bring that same energy to every project: thorough, calm under deadline, and genuinely invested in the people I\'m building for.'
+        : 'En dehors de la maquette et du rendu, je suis d\'une curiosité sans fin — je fais de la musique, j\'apprends toujours quelque chose de nouveau, et j\'aime les projets qui me permettent de créer à partir de rien. J\'apporte cette même énergie à chaque projet : rigoureux, serein face aux délais, et sincèrement investi pour les personnes pour qui je conçois.'}</p>
+      <div class="about-contact">
+        <span><i class="ti ti-map-pin"></i> Sousse, Tunisie</span>
+        <span><i class="ti ti-mail"></i> khair.eddine.mohamed@outlook.com</span>
+        <span><i class="ti ti-brand-linkedin"></i> /khair-eddine-mohamed</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="edu-line">
+    <span class="k">${lang==='en'?'Education':'Formation'}</span>
+    <span class="v"><b>${lang==='en'?'Architecture Diploma':'Diplôme d\'Architecte'}</b> — ENAU Tunis · 2014–2021</span>
+    <span class="wes">${lang==='en'?'WES-evaluated: Bachelor + Master equivalency (2026)':'Équivalence WES : Licence + Master (2026)'}</span>
+  </div>
+
+  <div class="xp">
+    <div class="xp-head">${lang==='en'?'Experience':'Expérience'}</div>
+    ${[
+      {when:'2025 — '+(lang==='en'?'present':'présent'),where:'MonoArt Studio, Sousse',role:lang==='en'?'Architect, CG Artist':'Architecte, Artiste 3D',
+       desc:lang==='en'?'High-fidelity renders and BIM models that accelerate approvals and stakeholder buy-in; site evaluations and feasibility analyses that cut iteration cycles.':'Rendus haute fidélité et maquettes BIM accélérant les approbations et l\'adhésion; évaluations de site et analyses de faisabilité réduisant les cycles d\'itération.'},
+      {when:'2023 — 2025',where:'Atelier Osmose, Sousse',role:lang==='en'?'Architect':'Architecte',
+       desc:lang==='en'?'End-to-end design delivery across 12 projects; construction-ready Revit BIM models; mentored juniors in BIM and 3D workflows.':'Conception de bout en bout sur 12 projets; maquettes Revit prêtes pour la construction; encadrement de juniors en BIM et 3D.'},
+      {when:'2022 — 2023',where:'KC Architects, Tunis',role:lang==='en'?'Architect':'Architecte',
+       desc:lang==='en'?'10+ mixed-use and residential projects across all phases; detailed execution plans and technical specifications; multidisciplinary coordination.':'10+ projets mixtes et résidentiels sur toutes les phases; plans d\'exécution détaillés et spécifications techniques; coordination pluridisciplinaire.'},
+      {when:'2021 — 2022',where:'URBAT Store, Tunis',role:lang==='en'?'Architect':'Architecte',
+       desc:lang==='en'?'15 retail and commercial projects on schedule and budget; proactive site coordination and meticulous construction documentation.':'15 projets commerciaux livrés dans les délais et le budget; coordination proactive du chantier et documentation méticuleuse.'}
+    ].map(x=>`<div class="xprow"><div><div class="when">${x.when}</div><div class="where">${x.where}</div></div><div><div class="role">${x.role}</div><div class="desc">${x.desc}</div></div></div>`).join("")}
+  </div>
+
+  <div class="skills">
+    <div class="sk-title">${lang==='en'?'Skills':'Compétences'}</div>
+    <div class="sk-grid">
+      <div class="sk-col">
+        <div class="sk-lbl">${lang==='en'?'Hard skills':'Compétences techniques'}</div>
+        ${[
+          {n:'Revit BIM',l:{en:'Advanced',fr:'Avancé'},v:95},
+          {n:'AutoCAD',l:{en:'Advanced',fr:'Avancé'},v:90},
+          {n:'IFC coordination & clash detection',l:{en:'Proficient',fr:'Maîtrisé'},v:82},
+          {n:'Lumion / Twinmotion',l:{en:'Advanced',fr:'Avancé'},v:90},
+          {n:'Blender / 3ds Max',l:{en:'Proficient',fr:'Maîtrisé'},v:80},
+          {n:'Adobe Creative Suite',l:{en:'Proficient',fr:'Maîtrisé'},v:78}
+        ].map(s=>`<div class="skbar"><div class="skrow"><span>${s.n}</span><span class="lvl">${t(s.l)}</span></div><div class="track"><div class="fill" style="width:${s.v}%"></div></div></div>`).join("")}
+      </div>
+      <div class="sk-col">
+        <div class="sk-lbl">${lang==='en'?'Soft skills':'Compétences humaines'}</div>
+        <div class="softskills">
+          ${(lang==='en'
+            ? ['Project delivery & budgeting','Client & stakeholder management','Cross-functional team leadership','Cost estimation & value engineering','Mentoring & knowledge sharing','Problem-solving on site','Clear technical communication']
+            : ['Gestion de projet & budgets','Relation client & parties prenantes','Leadership d\'équipes pluridisciplinaires','Estimation des coûts & ingénierie de la valeur','Mentorat & partage de savoir','Résolution de problèmes sur chantier','Communication technique claire']
+          ).map(c=>`<span class="chip">${c}</span>`).join("")}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-block">
+    <div class="sk-lbl">${lang==='en'?'Tools':'Outils'}</div>
+    <div class="tools-row">
+      ${[
+        {n:'Revit',i:'ti-building-skyscraper'},
+        {n:'AutoCAD',i:'ti-rulers'},
+        {n:'Lumion',i:'ti-sun'},
+        {n:'Twinmotion',i:'ti-movie'},
+        {n:'Blender',i:'ti-3d-cube-sphere'},
+        {n:'3ds Max',i:'ti-box'},
+        {n:'SketchUp',i:'ti-pencil'},
+        {n:'Adobe Suite',i:'ti-color-swatch'}
+      ].map(tl=>`<div class="tool"><div class="circ"><i class="ti ${tl.i}"></i></div><div class="tname">${tl.n}</div></div>`).join("")}
+    </div>
+  </div>
+
+  <div class="lang-line">
+    <span class="k">${lang==='en'?'Languages':'Langues'}</span>
+    <span class="v">${lang==='en'?'Arabic':'Arabe'} <span class="lv">${lang==='en'?'native':'natif'}</span></span>
+    <span class="v">${lang==='en'?'English':'Anglais'} <span class="lv">C1 · IELTS</span></span>
+    <span class="v">${lang==='en'?'French':'Français'} <span class="lv">B2 · TCF</span></span>
+  </div>`;
+}
+
+function renderContact(){
+  return `
+  <div class="centered-head">
+    <span class="hr"></span>
+    <h1>${lang==='en'?'Contact':'Contact'}</h1>
+    <span class="hr"></span>
+  </div>
+  <p class="centered-sub">${lang==='en'?`Let's talk about your project — I'm always open to new work, collaborations, and conversations.`:`Parlons de votre projet — je suis toujours ouvert à de nouvelles missions, collaborations et échanges.`}</p>
+  <section class="contact contact-centered">
+    <div class="links">
+      <div class="clink" onclick="location.href='mailto:khair.eddine.mohamed@outlook.com'"><i class="ti ti-mail"></i> khair.eddine.mohamed@outlook.com</div>
+      <div class="clink" onclick="window.open('https://wa.me/21655999967','_blank')"><i class="ti ti-brand-whatsapp"></i> +216 55 999 967 — WhatsApp</div>
+      <div class="clink" onclick="window.open('https://www.linkedin.com/in/khair-eddine-mohamed/','_blank')"><i class="ti ti-brand-linkedin"></i> linkedin.com/in/khair-eddine-mohamed</div>
+      <div class="clink"><i class="ti ti-map-pin"></i> Sousse, Tunisie</div>
+    </div>
+  </section>`;
+}
+
+/* ============ ROUTER ============ */
+function go(id){
+  current = id;
+  const main = document.getElementById("main");
+  let html="";
+  if(id==="home") html=renderHome();
+  else if(id==="work") html=renderWork();
+  else if(id==="about") html=renderAbout();
+  else if(id==="contact") html=renderContact();
+  else {
+    const i = projects.findIndex(p=>p.id===id);
+    if(i>=0) html=renderProject(projects[i], i);
+    else html=renderHome();
+  }
+  main.innerHTML = `<div class="page active">${html}</div>`;
+  const isProject = projects.some(p=>p.id===id);
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    const n=a.dataset.nav;
+    a.classList.toggle('active', n===id || (isProject && n==='work'));
+  });
+  window.scrollTo({top:0,behavior:'instant'});
+  if(id==="home") startHelloRotator(); else stopHelloRotator();
+}
+
+let helloTimer=null;
+function startHelloRotator(){
+  stopHelloRotator();
+  const bg=document.getElementById('helloBg');
+  if(!bg) return;
+  const slides=[...bg.querySelectorAll('.slide')];
+  // attempt to load real images; if present they replace the placeholder look
+  slides.forEach(s=>{
+    const src=s.dataset.src;
+    const img=new Image();
+    img.onload=()=>{ s.classList.remove('placeholder'); s.style.backgroundImage=`url('${src}')`; const sp=s.querySelector('span'); if(sp) sp.remove(); };
+    img.src=src;
+  });
+  if(slides.length<2) return;
+  let i=0;
+  helloTimer=setInterval(()=>{
+    slides[i].classList.remove('on');
+    i=(i+1)%slides.length;
+    slides[i].classList.add('on');
+  },6000);
+}
+function stopHelloRotator(){ if(helloTimer){clearInterval(helloTimer);helloTimer=null;} }
+
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.getElementById('lang-en').className = lang==='en'?'':'off';
+  document.getElementById('lang-fr').className = lang==='fr'?'':'off';
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerHTML = lang==='en'?el.dataset.en:el.dataset.fr;
+  });
+  go(current);
+}
+function toggleLang(){ lang = lang==='en'?'fr':'en'; applyLang(); }
+
+function toggleDock(){ document.getElementById('dock').classList.toggle('open'); }
+document.addEventListener('click', function(e){
+  const dock = document.getElementById('dock');
+  if(dock && dock.classList.contains('open') && !dock.contains(e.target)){
+    dock.classList.remove('open');
+  }
+});
+
+go('home');
+</script>
+</body>
+</html>
