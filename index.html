@@ -320,6 +320,7 @@
   .tool{display:flex;flex-direction:column;align-items:center;gap:9px;width:80px;}
   .tool .circ{width:60px;height:60px;border-radius:50%;border:0.5px solid var(--line-2);background:var(--paper);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;}
   .tool .circ i{font-size:26px;color:var(--clay);}
+  .tool .circ img{width:34px;height:34px;object-fit:contain;}
   .tool:hover .circ{background:var(--clay-tint);border-color:var(--clay);}
   .tool .tname{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.3;}
   .lang-line{display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px;padding:22px 32px 56px;border-top:0.5px solid var(--line);}
@@ -889,15 +890,15 @@ function renderAbout(){
     <div class="sk-lbl">${lang==='en'?'Tools':'Outils'}</div>
     <div class="tools-row">
       ${[
-        {n:'Revit',i:'ti-building-skyscraper'},
-        {n:'AutoCAD',i:'ti-rulers'},
-        {n:'Lumion',i:'ti-sun'},
-        {n:'Twinmotion',i:'ti-movie'},
-        {n:'Blender',i:'ti-3d-cube-sphere'},
-        {n:'3ds Max',i:'ti-box'},
-        {n:'SketchUp',i:'ti-pencil'},
-        {n:'Adobe Suite',i:'ti-color-swatch'}
-      ].map(tl=>`<div class="tool"><div class="circ"><i class="ti ${tl.i}"></i></div><div class="tname">${tl.n}</div></div>`).join("")}
+        {n:'Revit',f:'revit'},
+        {n:'AutoCAD',f:'autocad'},
+        {n:'Lumion',f:'lumion'},
+        {n:'Twinmotion',f:'twinmotion'},
+        {n:'Blender',f:'blender'},
+        {n:'3ds Max',f:'3dsmax'},
+        {n:'SketchUp',f:'sketchup'},
+        {n:'Adobe Suite',f:'adobe'}
+      ].map(tl=>`<div class="tool"><div class="circ"><img src="images/tools/${tl.f}.png" alt="${tl.n}" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><i class="ti ti-box" style="display:none"></i></div><div class="tname">${tl.n}</div></div>`).join("")}
     </div>
   </div>
 
