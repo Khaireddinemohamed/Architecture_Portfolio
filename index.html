@@ -152,7 +152,9 @@
   .proj-top .count{font-family:var(--mono);font-size:13px;color:var(--hint);}
 
   .phero{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--clay-mid);}
-  .phero .ph-fill{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);}
+  .phero .phero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .phero .ph-fill{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);z-index:1;}
+  .phero.noimg .ph-fill{display:flex;}
   .phero .ph-fill i{font-size:34px;}
   .phero .ph-fill .cap{font-size:13px;font-weight:500;margin-top:8px;}
   .phero .ph-fill .fn{font-size:11px;font-family:var(--mono);color:#b5613f;margin-top:3px;}
@@ -183,11 +185,17 @@
   .chapter .ch-body{font-size:15px;line-height:1.75;color:var(--muted);max-width:680px;padding:18px 0 28px;}
 
   .imgslot{
-    background:var(--paper-2);border:0.5px dashed var(--line-2);border-radius:8px;
+    position:relative;overflow:hidden;
+    background:var(--paper-2);border-radius:8px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);
     margin-bottom:16px;
   }
-  .imgslot.warm{background:var(--clay-tint);border-color:var(--clay);color:var(--brick);}
+  .imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .imgslot .ph{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:0.5px dashed var(--line-2);border-radius:8px;position:absolute;inset:0;}
+  .imgslot.noimg{background:var(--paper-2);}
+  .imgslot.noimg .ph{display:flex;}
+  .imgslot.warm.noimg{background:var(--clay-tint);color:var(--brick);}
+  .imgslot.warm.noimg .ph{border-color:var(--clay);}
   .imgslot i{font-size:24px;}
   .imgslot .cap{font-size:12px;margin-top:6px;text-align:center;padding:0 12px;}
   .imgslot .fn{font-size:10px;font-family:var(--mono);margin-top:3px;}
@@ -285,7 +293,10 @@
   .work-grid .wcard:first-child{grid-column:1 / -1;}
   .wcard{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:10px;cursor:pointer;background:var(--clay-mid);}
   .wcard:first-child{aspect-ratio:21/9;}
-  .wcard .wfill{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);background:var(--clay-tint);transition:transform .6s ease;}
+  .wcard .wcard-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s ease;}
+  .wcard:hover .wcard-img{transform:scale(1.04);}
+  .wcard .wfill{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;color:var(--brick);background:var(--clay-tint);transition:transform .6s ease;}
+  .wcard.noimg .wfill{display:flex;}
   .wcard .wfill i{font-size:30px;opacity:.5;}
   .wcard .wfill .fn{font-size:10px;font-family:var(--mono);margin-top:6px;opacity:.7;}
   .wcard .wover{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px;opacity:0;transition:opacity .35s ease;
@@ -693,10 +704,14 @@ function imgSlot(img){
   const warm = img.warm ? " warm" : "";
   const r = img.r || "r43";
   const icon = img.icon || "ti-photo";
+  const src = "images/" + img.fn;
   return `<div class="imgslot ${r}${warm}">
-    <i class="ti ${icon}"></i>
-    <div class="cap">${t(img.cap)}</div>
-    <div class="fn">${img.fn}</div>
+    <img src="${src}" alt="${t(img.cap)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
+    <div class="ph">
+      <i class="ti ${icon}"></i>
+      <div class="cap">${t(img.cap)}</div>
+      <div class="fn">${img.fn}</div>
+    </div>
   </div>`;
 }
 function imgBlock(item){
@@ -767,6 +782,7 @@ function renderHome(){
 function renderWork(){
   const cards = projects.map(p=>`
     <div class="wcard" onclick="go('${p.id}')">
+      <img class="wcard-img" src="images/${p.hero.fn}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
       <div class="wfill"><i class="ti ti-photo"></i><div class="fn">${p.hero.fn}</div></div>
       <div class="wover">
         <div class="wnum">${p.num}</div>
@@ -801,6 +817,7 @@ function renderProject(p, i){
     <span class="count">${count}</span>
   </div>
   <div class="phero">
+    <img class="phero-img" src="images/${p.hero.fn}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
     <div class="ph-fill"><i class="ti ti-photo"></i><div class="cap">${lang==='en'?'Hero':'Image principale'} — ${p.hero.cap}</div><div class="fn">${p.hero.fn}</div></div>
     <div class="scrim"></div>
     <div class="htitle">
