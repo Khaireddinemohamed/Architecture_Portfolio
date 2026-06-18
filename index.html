@@ -82,7 +82,7 @@
   .hello-bg .slide.on{opacity:1;}
   .hello-bg .slide.placeholder{background:linear-gradient(135deg,var(--clay-tint),var(--clay-mid));display:flex;align-items:center;justify-content:center;}
   .hello-bg .slide.placeholder span{font-family:var(--mono);font-size:12px;color:var(--brick);opacity:.6;}
-  .hello-scrim{position:absolute;inset:0;z-index:1;background:rgba(253,252,250,0.74);}
+  .hello-scrim{position:absolute;inset:0;z-index:1;background:rgba(253,252,250,0.55);}
   .hello-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
   .hello-inner .eyebrow{justify-content:center;}
   .hello-inner h1.title{max-width:760px;}
@@ -213,6 +213,7 @@
   .about-intro{padding:56px 32px 40px;display:grid;grid-template-columns:148px 1fr;gap:34px;align-items:start;}
   .portrait{width:148px;height:148px;border-radius:12px;background:var(--clay-tint);display:flex;align-items:center;justify-content:center;border:0.5px solid var(--line);}
   .portrait span{font-family:var(--display);font-size:38px;font-weight:500;color:var(--brick);}
+  .portrait img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
   .about-intro h1{font-family:var(--display);font-size:28px;font-weight:500;line-height:1.25;letter-spacing:-0.01em;max-width:540px;margin-bottom:16px;}
   .about-intro .bio{font-size:15px;line-height:1.75;color:var(--muted);max-width:580px;}
   .about-contact{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--hint);}
@@ -820,7 +821,7 @@ function renderProject(p, i){
 function renderAbout(){
   return `
   <section class="about-intro">
-    <div class="portrait"><span>KM</span></div>
+    <div class="portrait"><img src="images/profile.jpg" alt="Khair-Eddine Mohamed" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><span style="display:none">KM</span></div>
     <div>
       <div class="eyebrow"><span class="tick"></span><span>${lang==='en'?'About':'À propos'}</span></div>
       <h1>${lang==='en'
