@@ -199,6 +199,11 @@
   .imgslot i{font-size:24px;}
   .imgslot .cap{font-size:12px;margin-top:6px;text-align:center;padding:0 12px;}
   .imgslot .fn{font-size:10px;font-family:var(--mono);margin-top:3px;}
+  .imgslot .cap-over{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 16px 14px;opacity:0;transition:opacity .3s ease;
+    background:linear-gradient(to top,rgba(18,11,7,0.82),rgba(18,11,7,0.15) 70%,transparent);}
+  .imgslot .cap-over span{font-size:12.5px;font-weight:500;color:#fff;letter-spacing:0.01em;}
+  .imgslot:hover .cap-over{opacity:1;}
+  .imgslot.noimg .cap-over{display:none;}
   .imgslot.r43{aspect-ratio:4/3;}
   .imgslot.r32{aspect-ratio:3/2;}
   .imgslot.r169{aspect-ratio:16/9;}
@@ -378,6 +383,7 @@
     .work-grid{grid-template-columns:1fr;padding:24px 18px;}
     .work-grid .wcard:first-child{aspect-ratio:4/3;}
     .wcard .wover{opacity:1;}            /* show titles by default on touch (no hover) */
+    .imgslot .cap-over{opacity:1;}        /* show image captions by default on touch */
     .wcard .wover .wname{font-size:21px;}
 
     .phero{aspect-ratio:4/5;}
@@ -705,11 +711,13 @@ function imgSlot(img){
   const r = img.r || "r43";
   const icon = img.icon || "ti-photo";
   const src = "images/" + img.fn;
+  const cap = t(img.cap);
   return `<div class="imgslot ${r}${warm}">
-    <img src="${src}" alt="${t(img.cap)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
+    <img src="${src}" alt="${cap}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
+    <div class="cap-over"><span>${cap}</span></div>
     <div class="ph">
       <i class="ti ${icon}"></i>
-      <div class="cap">${t(img.cap)}</div>
+      <div class="cap">${cap}</div>
       <div class="fn">${img.fn}</div>
     </div>
   </div>`;
