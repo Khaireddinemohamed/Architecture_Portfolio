@@ -193,7 +193,8 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);
     margin-bottom:16px;
   }
-  .imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;padding:10px;}
+  .imgslot.warm img{object-fit:cover;padding:0;}
   .imgslot .ph{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:0.5px dashed var(--line-2);border-radius:8px;position:absolute;inset:0;}
   .imgslot.noimg{background:var(--paper-2);}
   .imgslot.noimg .ph{display:flex;}
@@ -217,8 +218,12 @@
   .imgpair{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .imgquad{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   /* tall layout: vertical image beside a stack of content */
-  .imgtall-row{display:grid;grid-template-columns:0.62fr 1fr;gap:16px;align-items:start;}
-  .imgtall-row .imgslot.rtall{aspect-ratio:3/4;height:100%;}
+  .imgtall-row{display:grid;grid-template-columns:0.7fr 1fr;gap:16px;align-items:stretch;}
+  .imgtall-row .tall-col{display:flex;}
+  .imgtall-row .tall-col .imgslot{width:100%;margin-bottom:0;}
+  .imgtall-row .imgslot.rtall{aspect-ratio:3/4;height:auto;}
+  .imgtall-row .stack-col{display:flex;flex-direction:column;gap:16px;}
+  .imgtall-row .stack-col .imgslot{flex:1;margin-bottom:0;min-height:0;}
   .chapter-imgs{padding-bottom:8px;}
 
   .pfoot{display:flex;justify-content:space-between;padding:24px 32px;border-top:0.5px solid var(--line);font-size:13.5px;margin-top:20px;}
@@ -735,8 +740,8 @@ function imgBlock(item){
   if(item.tallRow){
     // a tall vertical image beside stacked smaller images
     return `<div class="imgtall-row">
-      ${imgSlot(item.tallRow.tall)}
-      <div style="display:flex;flex-direction:column;gap:16px;">${item.tallRow.stack.map(imgSlot).join("")}</div>
+      <div class="tall-col">${imgSlot(item.tallRow.tall)}</div>
+      <div class="stack-col">${item.tallRow.stack.map(imgSlot).join("")}</div>
     </div>`;
   }
   return imgSlot(item);
