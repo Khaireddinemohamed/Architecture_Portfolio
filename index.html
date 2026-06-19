@@ -189,7 +189,7 @@
 
   .imgslot{
     position:relative;overflow:hidden;
-    background:var(--paper-2);border-radius:8px;
+    background:#fff;border:0.5px solid var(--line);border-radius:8px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);
     margin-bottom:16px;
   }
@@ -215,6 +215,10 @@
   .imgslot.rtall{aspect-ratio:9/16;}
   .imgslot.rsquare{aspect-ratio:1/1;}
   .imgslot.rstrip{aspect-ratio:32/9;}
+  .imgslot.rnatural{aspect-ratio:auto !important;min-height:auto;background:transparent;display:flex !important;justify-content:center;position:relative;text-align:center;overflow:visible;width:fit-content;margin-left:auto;margin-right:auto;}
+  .imgslot.rnatural.noimg{min-height:400px;width:100%;background:#fff;display:flex !important;}
+  .imgslot.rnatural img{position:static !important;inset:auto !important;height:auto !important;max-height:none !important;width:auto !important;max-width:100% !important;margin:0 auto;object-fit:contain;padding:0 !important;display:inline-block !important;}
+  .imgslot.rnatural .cap-over{position:absolute;left:0;right:0;bottom:0;}
   .imgpair{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .imgquad{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   /* tall layout: vertical image beside a stack of content */
@@ -473,7 +477,8 @@ const projects = [
              fr:"Beach House suit une idée unique et rigoureuse : laisser la fonction et la matière porter l'architecture, et retirer tout le reste. Le plan organise les espaces de vie, de service et de repos en volumes clairs autour d'une piscine centrale, avec une circulation volontairement simple. Plutôt que l'ornement, le projet repose sur une palette de matériaux maîtrisée — brique, marbre et pierre — attribuée pièce par pièce et lisible directement depuis la maquette."},
        imgs:[
          {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"beachhouse_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"beachhouse_plan_etage.png",icon:"ti-floor-plan"}]},
-         {tallRow:{tall:{r:"rtall",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"beachhouse_exploded_axo.png",icon:"ti-stack-2"},stack:[{r:"r169",cap:{en:"Sections",fr:"Coupes"},fn:"beachhouse_sections.png",icon:"ti-rulers"}]}}
+         {r:"r43",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"beachhouse_exploded_axo.png",icon:"ti-stack-2"},
+         {r:"r169",cap:{en:"Sections",fr:"Coupes"},fn:"beachhouse_sections.png",icon:"ti-rulers"}
        ]},
       {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
        body:{en:"The villa was modeled entirely in Revit, from schematic design through execution documents. The set includes masonry plans, wall-section details at 1:50, and gridded building sections coordinated across two levels plus the roof and pergola. A particular focus was the intersection of the staircase and the façade glazing, resolved in both 2D detail and 3D to verify the geometry before construction. Material quantities — brick cladding, marble for stairs and sills, floor finishes by level and room — were extracted as schedules directly from the model.",
@@ -511,7 +516,8 @@ const projects = [
              fr:"Zollner est une unité de production industrielle conçue selon les réalités de construction et d'exploitation d'une usine. L'architecture devait satisfaire deux cadres externes à la fois : les normes tunisiennes du bâtiment industriel et le cahier architectural du client, qui fixe les standards de ses installations. Le projet compose avec ces contraintes plutôt que contre elles — une trame structurelle claire, une enveloppe efficace, et une organisation de site gérant circulation, logistique et paysage à grande échelle."},
        imgs:[
          {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"zollner_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"zollner_plan_etage.png",icon:"ti-floor-plan"}]},
-         {tallRow:{tall:{r:"rtall",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"zollner_exploded_axo.png",icon:"ti-stack-2"},stack:[{r:"r43",cap:{en:"General axonometric 1",fr:"Axonométrie générale 1"},fn:"zollner_axo_01.png",icon:"ti-box"},{r:"r43",cap:{en:"General axonometric 2",fr:"Axonométrie générale 2"},fn:"zollner_axo_02.png",icon:"ti-box"}]}}
+         {r:"r43",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"zollner_exploded_axo.png",icon:"ti-stack-2"},
+         {pair:[{r:"r43",cap:{en:"General axonometric 1",fr:"Axonométrie générale 1"},fn:"zollner_axo_01.png",icon:"ti-box"},{r:"r43",cap:{en:"General axonometric 2",fr:"Axonométrie générale 2"},fn:"zollner_axo_02.png",icon:"ti-box"}]}
        ]},
       {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
        body:{en:"This project was a federated BIM effort. Structural, HVAC, and electrical engineers each delivered their models as IFC files, which were integrated and coordinated against the architectural model in Revit. Beyond aligning the architecture to the structural grid, I ran clash detection across the federated model — identifying and resolving conflicts between disciplines before they reached the site. The deliverable was a full permis de bâtir set — plans, elevations on all faces, and long-span building sections — produced to regulatory standard for a 4,000 m² facility spanning ground and upper levels.",
