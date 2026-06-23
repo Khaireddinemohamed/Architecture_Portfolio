@@ -1088,8 +1088,8 @@ function go(id){
   });
   window.scrollTo({top:0,behavior:'instant'});
   if(id==="home") startHelloRotator(); else stopHelloRotator();
-  // show loader when entering the heavy Gallery page (not on first load — that's handled at boot)
-  if(id==="gallery" && !firstLoad){ runLoader(main); }
+  // show loader when entering heavy pages (Work, Gallery) — not on first load (handled at boot)
+  if((id==="gallery" || id==="work") && !firstLoad){ runLoader(main); }
   firstLoad=false;
 }
 
