@@ -77,7 +77,7 @@
   .hero{padding:84px 32px 64px;}
 
   /* ---------- HELLO centered hero with rotating background ---------- */
-  .hello-hero{position:relative;min-height:calc(100vh - 120px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px;overflow:hidden;
+  .hello-hero{position:relative;min-height:calc(100vh - 120px);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:80px 32px 64px;overflow:hidden;
     width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
   .hello-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;max-width:var(--maxw);}
   .hello-bg{position:absolute;inset:0;z-index:0;}
@@ -85,11 +85,15 @@
   .hello-bg .slide.on{opacity:1;}
   .hello-bg .slide.placeholder{background:linear-gradient(135deg,var(--clay-tint),var(--clay-mid));display:flex;align-items:center;justify-content:center;}
   .hello-bg .slide.placeholder span{font-family:var(--mono);font-size:12px;color:var(--brick);opacity:.6;}
-  .hello-scrim{position:absolute;inset:0;z-index:1;background:rgba(253,252,250,0.55);}
-  .hello-inner .eyebrow{justify-content:center;}
-  .hello-inner h1.title{max-width:760px;}
-  .hello-inner .lede{margin-left:auto;margin-right:auto;}
-  .hello-inner .statstrip{margin-left:auto;margin-right:auto;}
+  .hello-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top, rgba(18,11,7,0.62), rgba(18,11,7,0.20) 35%, transparent 55%, transparent 80%, rgba(18,11,7,0.30) 100%);}
+  .hello-top{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;justify-content:center;padding:34px 32px 0;}
+  .hello-top .eyebrow{margin-bottom:0;}
+  .hello-inner .eyebrow{justify-content:center;margin-bottom:16px;}
+  .hello-inner .eyebrow span{color:#F0C4B0;}
+  .hello-inner .eyebrow .tick{background:#E8956F;}
+  .hello-inner h1.title{max-width:none;color:#fff;text-shadow:0 2px 30px rgba(18,11,7,0.5);font-size:clamp(26px,3.4vw,40px);line-height:1.12;}
+  .hello-inner h1.title .accent{color:#F0A074;}
+  .hello-inner .lede{margin:16px auto 0;color:rgba(255,255,255,0.92);text-shadow:0 1px 18px rgba(18,11,7,0.5);font-size:15px;max-width:520px;}
 
   /* ---------- VISION ---------- */
   .vision{padding:72px 32px 84px;border-top:0.5px solid var(--line);text-align:center;}
@@ -124,8 +128,10 @@
   .metaline .pin{color:var(--clay);}
 
   /* ---------- WORK INDEX ---------- */
-  .section-head{
-    display:flex;align-items:baseline;justify-content:space-between;
+  .ministats{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;padding:22px 32px 6px;font-size:13px;color:var(--muted);}
+  .ministats b{font-weight:500;color:var(--ink);}
+  .ministats .sep{color:var(--clay);}
+  .section-head{    display:flex;align-items:baseline;justify-content:space-between;
     padding:30px 32px 4px;border-top:0.5px solid var(--line);margin:0 0 0;
   }
   .section-head h2{font-family:var(--display);font-size:24px;font-weight:500;}
@@ -189,12 +195,11 @@
 
   .imgslot{
     position:relative;overflow:hidden;
-    background:#fff;border:0.5px solid var(--line);border-radius:8px;
+    background:var(--paper-2);border-radius:8px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);
     margin-bottom:16px;
   }
-  .imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;padding:10px;}
-  .imgslot.warm img{object-fit:cover;padding:0;}
+  .imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   .imgslot .ph{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:0.5px dashed var(--line-2);border-radius:8px;position:absolute;inset:0;}
   .imgslot.noimg{background:var(--paper-2);}
   .imgslot.noimg .ph{display:flex;}
@@ -374,6 +379,7 @@
     h1.title{font-size:30px;}
     .lede{font-size:15px;}
     .statstrip{flex-direction:column;}
+    .ministats{gap:8px 12px;font-size:12px;padding:18px 18px 4px;}
     .statstrip .cell{border-right:none;border-bottom:0.5px solid var(--line);min-width:0;}
     .statstrip .cell:last-child{border-bottom:none;}
 
@@ -468,7 +474,7 @@ const projects = [
     },
     idxMeta:{en:"Nabeul · 2024 · 500 m² · full lifecycle + quantities",fr:"Nabeul · 2024 · 500 m² · cycle complet + quantités"},
     badge:{en:"APS → EXE",fr:"APS → EXE"},
-    hero:{cap:"Exploded axonometric",fn:"beachhouse_exploded_axo.png"},
+    hero:{cap:"Exterior render",fn:"beachhouse_hero.png"},
     intro:{en:"A minimalist beach villa where every surface is a material decision — built end to end in BIM.",
             fr:"Une villa balnéaire minimaliste où chaque surface est un choix de matériau — conçue de bout en bout en BIM."},
     chapters:[
@@ -477,7 +483,7 @@ const projects = [
              fr:"Beach House suit une idée unique et rigoureuse : laisser la fonction et la matière porter l'architecture, et retirer tout le reste. Le plan organise les espaces de vie, de service et de repos en volumes clairs autour d'une piscine centrale, avec une circulation volontairement simple. Plutôt que l'ornement, le projet repose sur une palette de matériaux maîtrisée — brique, marbre et pierre — attribuée pièce par pièce et lisible directement depuis la maquette."},
        imgs:[
          {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"beachhouse_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"beachhouse_plan_etage.png",icon:"ti-floor-plan"}]},
-         {r:"r43",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"beachhouse_exploded_axo.png",icon:"ti-stack-2"},
+         {r:"rnatural",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"beachhouse_exploded_axo.png",icon:"ti-stack-2"},
          {r:"r169",cap:{en:"Sections",fr:"Coupes"},fn:"beachhouse_sections.png",icon:"ti-rulers"}
        ]},
       {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
@@ -516,7 +522,7 @@ const projects = [
              fr:"Zollner est une unité de production industrielle conçue selon les réalités de construction et d'exploitation d'une usine. L'architecture devait satisfaire deux cadres externes à la fois : les normes tunisiennes du bâtiment industriel et le cahier architectural du client, qui fixe les standards de ses installations. Le projet compose avec ces contraintes plutôt que contre elles — une trame structurelle claire, une enveloppe efficace, et une organisation de site gérant circulation, logistique et paysage à grande échelle."},
        imgs:[
          {pair:[{r:"r43",cap:{en:"Plan RDC",fr:"Plan RDC"},fn:"zollner_plan_rdc.png",icon:"ti-floor-plan"},{r:"r43",cap:{en:"Plan étage",fr:"Plan étage"},fn:"zollner_plan_etage.png",icon:"ti-floor-plan"}]},
-         {r:"r43",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"zollner_exploded_axo.png",icon:"ti-stack-2"},
+         {r:"rnatural",cap:{en:"Exploded axonometric",fr:"Axonométrie éclatée"},fn:"zollner_exploded_axo.png",icon:"ti-stack-2"},
          {pair:[{r:"r43",cap:{en:"General axonometric 1",fr:"Axonométrie générale 1"},fn:"zollner_axo_01.png",icon:"ti-box"},{r:"r43",cap:{en:"General axonometric 2",fr:"Axonométrie générale 2"},fn:"zollner_axo_02.png",icon:"ti-box"}]}
        ]},
       {head:{en:"BIM & coordination",fr:"BIM & coordination"},sub:{en:"the technical spine",fr:"l'épine technique"},
@@ -764,7 +770,7 @@ function renderHome(){
       <span class="badge">${t(p.badge)} <i class="ti ti-arrow-right arrow" style="font-size:13px"></i></span>
     </div>`).join("");
   // rotating background slides — replace fn list with real image paths after upload
-  const bgImages = ["hello_bg_01.jpg","hello_bg_02.jpg","hello_bg_03.jpg","hello_bg_04.jpg"];
+  const bgImages = ["hello_bg_01.jpg","hello_bg_02.jpg","hello_bg_03.jpg","hello_bg_04.jpg","hello_bg_05.jpg","hello_bg_06.jpg","hello_bg_07.jpg","hello_bg_08.jpg"];
   const slides = bgImages.map((src,i)=>
     `<div class="slide placeholder${i===0?' on':''}" data-src="images/${src}"><span>images/${src}</span></div>`
   ).join("");
@@ -772,22 +778,27 @@ function renderHome(){
   <section class="hello-hero">
     <div class="hello-bg" id="helloBg">${slides}</div>
     <div class="hello-scrim"></div>
-    <div class="hello-inner">
+    <div class="hello-top">
       <div class="eyebrow"><span class="tick"></span><span>${lang==='en'?'BIM & 3D Architecture Portfolio':'Portfolio architecture BIM & 3D'}</span></div>
+    </div>
+    <div class="hello-inner">
       <h1 class="title">${lang==='en'
         ? `From concept to construction,<br><span class="accent">built in BIM — brought to life in 3D.</span>`
         : `Du concept à la construction,<br><span class="accent">conçu en BIM — révélé en 3D.</span>`}</h1>
       <p class="lede">${lang==='en'
         ? `Architect & 3D artist based in Sousse, Tunisia. I turn abstract concepts into construction-ready solutions — from APS to EXE, driven by Revit and high-fidelity visualization.`
         : `Architecte & artiste 3D basé à Sousse, Tunisie. Je transforme des concepts abstraits en solutions prêtes pour la construction — de l'APS à l'EXE, pilotées par Revit et la visualisation haute fidélité.`}</p>
-      <div class="statstrip">
-        <div class="cell"><div class="num">40+</div><div class="lbl">${lang==='en'?'Projects delivered':'Projets livrés'}</div></div>
-        <div class="cell"><div class="num">IFC</div><div class="lbl">${lang==='en'?'Multi-discipline coordination':'Coordination multidisciplinaire'}</div></div>
-        <div class="cell"><div class="num">APS → EXE</div><div class="lbl">${lang==='en'?'Full lifecycle':'Cycle complet'}</div></div>
-        <div class="cell"><div class="num">4.5/5</div><div class="lbl">${lang==='en'?'Client satisfaction':'Satisfaction client'}</div></div>
-      </div>
     </div>
   </section>
+  <div class="ministats">
+    <span><b>40+</b> ${lang==='en'?'projects':'projets'}</span>
+    <span class="sep">·</span>
+    <span><b>IFC</b> ${lang==='en'?'coordination':'coordination'}</span>
+    <span class="sep">·</span>
+    <span><b>APS → EXE</b> ${lang==='en'?'lifecycle':'cycle complet'}</span>
+    <span class="sep">·</span>
+    <span><b>4.5/5</b> ${lang==='en'?'client satisfaction':'satisfaction client'}</span>
+  </div>
   <div class="section-head">
     <h2>${lang==='en'?'Selected work':'Travaux sélectionnés'} <span class="fr">${lang==='en'?'— 7 projects':'— 7 projets'}</span></h2>
     <span class="yr">2023 — 2026</span>
