@@ -128,9 +128,25 @@
   .metaline .pin{color:var(--clay);}
 
   /* ---------- WORK INDEX ---------- */
-  .ministats{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;padding:22px 32px 6px;font-size:13px;color:var(--muted);}
-  .ministats b{font-weight:500;color:var(--ink);}
+  .ministats{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;padding:22px 32px 6px;font-size:13px;color:var(--muted);}  .ministats b{font-weight:500;color:var(--ink);}
   .ministats .sep{color:var(--clay);}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:32px;}
+  .gtile{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:8px;background:var(--paper-2);cursor:default;}
+  .gtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .gtile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .gtile:hover img{transform:scale(1.05);}
+  .gtile .gfill{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--hint);border:0.5px dashed var(--line-2);border-radius:8px;}
+  .gtile .gfill i{font-size:24px;}
+  .gtile .gfill .fn{font-size:10px;font-family:var(--mono);margin-top:6px;}
+  .gtile.noimg .gfill{display:flex;}
+  .gtile:not(.noimg) .gfill{display:none;}
+  .gtile .gcap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px;opacity:0;transition:opacity .3s ease;
+    background:linear-gradient(to top,rgba(18,11,7,0.8),transparent);}
+  .gtile .gcap span{font-size:12.5px;font-weight:500;color:#fff;}
+  .gtile:hover .gcap{opacity:1;}
+  .gtile.noimg .gcap{display:none;}
   .section-head{    display:flex;align-items:baseline;justify-content:space-between;
     padding:30px 32px 4px;border-top:0.5px solid var(--line);margin:0 0 0;
   }
@@ -399,6 +415,8 @@
     .imgtall-row .imgslot.rtall{aspect-ratio:3/4;height:auto;}
 
     .work-grid{grid-template-columns:1fr;padding:24px 18px;}
+    .gallery-grid{grid-template-columns:1fr 1fr;gap:10px;padding:24px 18px;}
+    .gtile .gcap{opacity:1;}
     .work-grid .wcard:first-child{aspect-ratio:4/3;}
     .wcard .wover{opacity:1;}            /* show titles by default on touch (no hover) */
     .imgslot .cap-over{opacity:1;}        /* show image captions by default on touch */
@@ -431,6 +449,7 @@
     <nav class="nav-links">
       <a onclick="go('home')" data-nav="home" data-en="Hello" data-fr="Hello">Hello</a>
       <a onclick="go('work')" data-nav="work" data-en="Work" data-fr="Projets">Work</a>
+      <a onclick="go('gallery')" data-nav="gallery" data-en="Gallery" data-fr="Galerie">Gallery</a>
       <a onclick="go('about')" data-nav="about" data-en="About" data-fr="À propos">About</a>
       <a onclick="go('contact')" data-nav="contact" data-en="Contact" data-fr="Contact">Contact</a>
       <span class="lang-toggle" onclick="toggleLang()"><span id="lang-en">EN</span> <span class="off" id="lang-fr">/ FR</span></span>
@@ -833,6 +852,53 @@ function renderWork(){
   <div class="work-grid">${cards}</div>`;
 }
 
+// Gallery items — videos first (autoplay/loop/muted), then images. All square tiles.
+// Videos live in images/videos/ ; images in images/gallery/.
+const galleryVideos = [
+  {fn:"video_01.mp4", cap:{en:"Animation 01", fr:"Animation 01"}},
+  {fn:"video_02.mp4", cap:{en:"Animation 02", fr:"Animation 02"}},
+  {fn:"video_03.mp4", cap:{en:"Animation 03", fr:"Animation 03"}}
+];
+const galleryItems = [
+  {fn:"render_01.jpg", cap:{en:"Render 01", fr:"Rendu 01"}},
+  {fn:"render_02.jpg", cap:{en:"Render 02", fr:"Rendu 02"}},
+  {fn:"render_03.jpg", cap:{en:"Render 03", fr:"Rendu 03"}},
+  {fn:"render_04.jpg", cap:{en:"Render 04", fr:"Rendu 04"}},
+  {fn:"render_05.jpg", cap:{en:"Render 05", fr:"Rendu 05"}},
+  {fn:"render_06.jpg", cap:{en:"Render 06", fr:"Rendu 06"}},
+  {fn:"render_07.jpg", cap:{en:"Render 07", fr:"Rendu 07"}},
+  {fn:"render_08.jpg", cap:{en:"Render 08", fr:"Rendu 08"}},
+  {fn:"render_09.jpg", cap:{en:"Render 09", fr:"Rendu 09"}},
+  {fn:"render_10.jpg", cap:{en:"Render 10", fr:"Rendu 10"}},
+  {fn:"render_11.jpg", cap:{en:"Render 11", fr:"Rendu 11"}},
+  {fn:"render_12.jpg", cap:{en:"Render 12", fr:"Rendu 12"}},
+  {fn:"render_13.jpg", cap:{en:"Render 13", fr:"Rendu 13"}},
+  {fn:"render_14.jpg", cap:{en:"Render 14", fr:"Rendu 14"}}
+];
+
+function renderGallery(){
+  const vids = galleryVideos.map(v=>`
+    <div class="gtile gvideo">
+      <video src="images/videos/${v.fn}" autoplay loop muted playsinline preload="metadata" onerror="this.style.display='none';this.parentElement.classList.add('noimg');"></video>
+      <div class="gfill"><i class="ti ti-movie"></i><div class="fn">videos/${v.fn}</div></div>
+      <div class="gcap"><span>${t(v.cap)}</span></div>
+    </div>`).join("");
+  const tiles = galleryItems.map(g=>`
+    <div class="gtile">
+      <img src="images/gallery/${g.fn}" alt="${t(g.cap)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('noimg');">
+      <div class="gfill"><i class="ti ti-photo"></i><div class="fn">gallery/${g.fn}</div></div>
+      <div class="gcap"><span>${t(g.cap)}</span></div>
+    </div>`).join("");
+  return `
+  <div class="centered-head">
+    <span class="hr"></span>
+    <h1>${lang==='en'?'Gallery':'Galerie'}</h1>
+    <span class="hr"></span>
+  </div>
+  <p class="centered-sub">${lang==='en'?'A selection of 3D renders, animations and visualization work.':'Une sélection de rendus 3D, animations et travaux de visualisation.'}</p>
+  <div class="gallery-grid">${vids}${tiles}</div>`;
+}
+
 function renderProject(p, i){
   const count = `${p.num} / 07`;
   const next = projects[(i+1)%projects.length];
@@ -986,6 +1052,7 @@ function go(id){
   let html="";
   if(id==="home") html=renderHome();
   else if(id==="work") html=renderWork();
+  else if(id==="gallery") html=renderGallery();
   else if(id==="about") html=renderAbout();
   else if(id==="contact") html=renderContact();
   else {
